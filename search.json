@@ -43,61 +43,6 @@
     ]
   },
   {
-    "objectID": "src/tt/Homework_01_Intermediate_Data Science.html",
-    "href": "src/tt/Homework_01_Intermediate_Data Science.html",
-    "title": "Homework 01",
-    "section": "",
-    "text": "TidyTuesday Section\nExplore the week’s TidyTuesday challenge. Develop a research question, then answer it through a short data story with effective visualization(s). Provide sufficient background for readers to grasp your narrative.\nReasearch Question : How are holidays/weekends related to fatal car crashes in the united states?\nCodelibrary(tidyverse)",
-    "crumbs": [
-      "TidyTuesday",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Homework 01</span>"
-    ]
-  },
-  {
-    "objectID": "src/tt/Homework_01_Intermediate_Data Science.html#reading-in-data",
-    "href": "src/tt/Homework_01_Intermediate_Data Science.html#reading-in-data",
-    "title": "Homework 01",
-    "section": "Reading in Data",
-    "text": "Reading in Data\n\nCode# .. go up one directory\n# Reading in Data \ndaily_AccApril_22 &lt;- read.csv(\"/Users/mohammedsohailkhan/Desktop/Fall_2025/Intermediate_DS/Portfolio/portfolio-Sohail-44/data/raw/Daily_Accidents_Apr_22_2025.csv\")\nview(daily_AccApril_22)",
-    "crumbs": [
-      "TidyTuesday",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Homework 01</span>"
-    ]
-  },
-  {
-    "objectID": "src/tt/Homework_01_Intermediate_Data Science.html#dividing-it-into-weekendsholidays-and-non-weekends-and-comparing-it-against-fatality-then-ggplotting-and-seeing-what-we-can-figure-out",
-    "href": "src/tt/Homework_01_Intermediate_Data Science.html#dividing-it-into-weekendsholidays-and-non-weekends-and-comparing-it-against-fatality-then-ggplotting-and-seeing-what-we-can-figure-out",
-    "title": "Homework 01",
-    "section": "Dividing it into weekends/Holidays and non-weekends and comparing it against fatality then ggplotting and seeing what we can figure out",
-    "text": "Dividing it into weekends/Holidays and non-weekends and comparing it against fatality then ggplotting and seeing what we can figure out\n\nCode# Note : %&gt;% this piping can be used only if you have installed deplyr or itdyverse \n# Adding a day variable : using weekday instead of format to get make the rewrite day as weekday \ndaily_AccApril_22 &lt;- daily_AccApril_22 %&gt;% \n  mutate(day = weekdays(as.Date(date)))\n\nhead(daily_AccApril_22)\n\n        date fatalities_count       day\n1 1992-01-01              144 Wednesday\n2 1992-01-02              111  Thursday\n3 1992-01-07               85   Tuesday\n4 1992-01-12              127    Sunday\n5 1992-01-03              182    Friday\n6 1992-01-17              130    Friday\n\n\n\nCode# Lets filter out the weekends and holidays \n# filter it must be true or false, you can't just give a value or column\n# %in% its same as in of python - basically saying : \" its in there \"\n# if I data is passed through pipe, i don't need to pass again in ggplot\ndaily_AccApril_22 %&gt;% \n  filter(fatalities_count &gt; 0, daily_AccApril_22$day %in% c (\"Saturday\", \"Sunday\")) %&gt;% \n  ggplot(aes(x = day, y = fatalities_count)) + \n  geom_col(color = \"red\") + theme_classic()\n\n\n\n\n\n\nCode# It shows the cumulative fatalities of weekends through of the history of USA from 1992 to 2016\n\n\n\nCode# Getting a numeric summary of the plot \n# grouping by day so that we can get a summary of weekends (saturday and sunday combined)\n# %&gt;% -- its essentially saying and then everything that occured before is passed we don't need to create specific column if we have filtered it and piped it\n\nweekend_fatalities &lt;- daily_AccApril_22 %&gt;% \n  filter(fatalities_count &gt; 0, daily_AccApril_22$day %in% c (\"Saturday\", \"Sunday\")) %&gt;% \n  group_by(day) %&gt;% \n  summarise(total_fatalities = sum(fatalities_count),\n            mean_fatalities  = mean(fatalities_count),\n            median_fatalities = median(fatalities_count),\n            n_records = n())\n  weekend_fatalities\n\n# A tibble: 2 × 5\n  day      total_fatalities mean_fatalities median_fatalities n_records\n  &lt;chr&gt;               &lt;int&gt;           &lt;dbl&gt;             &lt;dbl&gt;     &lt;int&gt;\n1 Saturday           232803            178.               179      1305\n2 Sunday             198294            152.               153      1304",
-    "crumbs": [
-      "TidyTuesday",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Homework 01</span>"
-    ]
-  },
-  {
-    "objectID": "src/tt/Homework_01_Intermediate_Data Science.html#including-fridays-as-weekends-as-well-beacuse-most-people-go-out-and-drive-on-friday-evening-once-work-is-done",
-    "href": "src/tt/Homework_01_Intermediate_Data Science.html#including-fridays-as-weekends-as-well-beacuse-most-people-go-out-and-drive-on-friday-evening-once-work-is-done",
-    "title": "Homework 01",
-    "section": "Including fridays as weekends as well beacuse most people go out and drive on friday evening once work is done",
-    "text": "Including fridays as weekends as well beacuse most people go out and drive on friday evening once work is done\n\nCodeallWeek_mean_fatalities &lt;- daily_AccApril_22 %&gt;%\n  mutate(day_type = ifelse(day %in% c(\"Friday\", \"Saturday\", \"Sunday\"), \"Weekend\", \"Weekday\")) %&gt;%\n  group_by(day_type) %&gt;%\n  summarise(mean_fatalities = mean(fatalities_count, na.rm = TRUE)) \nallWeek_mean_fatalities\n\n# A tibble: 2 × 2\n  day_type mean_fatalities\n  &lt;chr&gt;              &lt;dbl&gt;\n1 Weekday             130.\n2 Weekend             165.\n\nCode  ggplot(allWeek_mean_fatalities, aes(x = day_type, y = mean_fatalities, fill = day_type)) +\n  geom_col() +\n  labs(title = \"Mean Fatalities: Weekdays vs Weekends\",\n       x = \"Day Type\",\n       y = \"Mean Fatalities\")",
-    "crumbs": [
-      "TidyTuesday",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Homework 01</span>"
-    ]
-  },
-  {
-    "objectID": "src/tt/Homework_01_Intermediate_Data Science.html#conclusion-the-data-does-support-the-research-question-showing-that-on-average-theres-28-more-fatalities-due-to-car-accidents-on-weekends-than-weekdays-in-the-us-history-from-1992-to-2016.-additionally-due-to-nature-of-car-accidents-i-have-added-friday-to-weekends-as-more-people-see-friday-evening-as-the-beginning-of-weekens-and-as-per-the-analysis-on-average-if-we-combine-friday-saturday-and-sunday-there-35-more-fatalities-due-to-car-accidents-on-weekends-than-weekdays-in-the-us-history-from-1992-to-2016.",
-    "href": "src/tt/Homework_01_Intermediate_Data Science.html#conclusion-the-data-does-support-the-research-question-showing-that-on-average-theres-28-more-fatalities-due-to-car-accidents-on-weekends-than-weekdays-in-the-us-history-from-1992-to-2016.-additionally-due-to-nature-of-car-accidents-i-have-added-friday-to-weekends-as-more-people-see-friday-evening-as-the-beginning-of-weekens-and-as-per-the-analysis-on-average-if-we-combine-friday-saturday-and-sunday-there-35-more-fatalities-due-to-car-accidents-on-weekends-than-weekdays-in-the-us-history-from-1992-to-2016.",
-    "title": "Homework 01",
-    "section": "Conclusion : The data does support the Research question showing that on average there’s 28 more fatalities due to car accidents on weekends than weekdays in the US history from 1992 to 2016. Additionally, due to nature of car accidents I have added friday to weekends as more people see Friday evening as the beginning of weekens and as per the analysis on average if we combine Friday, Saturday and Sunday there 35 more fatalities due to car accidents on weekends than weekdays in the US history from 1992 to 2016.",
-    "text": "Conclusion : The data does support the Research question showing that on average there’s 28 more fatalities due to car accidents on weekends than weekdays in the US history from 1992 to 2016. Additionally, due to nature of car accidents I have added friday to weekends as more people see Friday evening as the beginning of weekens and as per the analysis on average if we combine Friday, Saturday and Sunday there 35 more fatalities due to car accidents on weekends than weekdays in the US history from 1992 to 2016.",
-    "crumbs": [
-      "TidyTuesday",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Homework 01</span>"
-    ]
-  },
-  {
     "objectID": "src/ica/ica-sample1.html",
     "href": "src/ica/ica-sample1.html",
     "title": "ICA Sample 1",
@@ -105,7 +50,7 @@
     "text": "Add content here",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ICA Sample 1</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>ICA Sample 1</span>"
     ]
   },
   {
@@ -116,7 +61,7 @@
     "text": "Add content here",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ICA Sample 2</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ICA Sample 2</span>"
     ]
   },
   {
