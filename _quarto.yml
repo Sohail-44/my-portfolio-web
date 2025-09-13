@@ -85,8 +85,8 @@ book:
 format:
   html:
     theme: # bootswatch themes--other options https://bootswatch.com/
-      light: flatly
-      dark: darkly
+      light: minty
+      dark: slate
     search: true
     toc: true
     toc-depth: 3
