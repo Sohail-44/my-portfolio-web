@@ -21,7 +21,7 @@ number-depth: 2
 
 
 book:
-  title: "sohail's-portfolio-web"
+  title: "Sohail's Portfolio"
   author: "Mohammed Sohail Khan"
   date: today  # use today to update date published based on last time project was edited
   date-format: full
