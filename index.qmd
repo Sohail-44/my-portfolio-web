@@ -5,7 +5,7 @@ Welcome to my portfolio!I'm Sohail, an aspiring Data Scientist and I'm passionat
 
 <div class="contact-links">
 
-[Email](Email me at:smohamm2@macalester.edu)
+[Email](smohamm2@macalester.edu)
 [GitHub](https://github.com/Sohail-44)
 [LinkedIn](https://www.linkedin.com/in/mohammed-sohail-khan-46489922a/)
 
