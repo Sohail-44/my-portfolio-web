@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Sohail’s Portfolio",
     "section": "",
-    "text": "Welcome\nWelcome to my portfolio!I am Sohail, an aspiring Data Scientist and I’m passionate about understanding the flow of data from the bottom up, from data generation to AI/ML. I/m skilled at Python, SQL, ETl/ELT, Databricks, AWS/Azure, Statistical Machine Learning along with some experience in Data Engineering Fundamentals. Please, use the side bar on the left for navigation.\n\nCode# echo: false\n\n# wordcloud2(data = ds, shape = \"cardioid\")\n\n\n\nEmail GitHub LinkedIn Data Science Portfolio Statistical ML Portfolio",
+    "text": "Welcome\nWelcome to my portfolio!I am Sohail, an aspiring Data Scientist and I’m passionate about understanding the flow of data from the bottom up, from data generation to AI/ML. I/m skilled at Python, SQL, ETl/ELT, Databricks, AWS/Azure, Statistical Machine Learning along with some experience in Data Engineering Fundamentals. Please, use the side bar on the left for navigation.\n\nCode# echo: false\n\n# wordcloud2(data = ds, shape = \"cardioid\")\n\n\n\n\n\n\nEmail GitHub LinkedIn Data Science Portfolio Statistical ML Portfolio",
     "crumbs": [
       "Welcome"
     ]
