@@ -38,6 +38,15 @@ ds <- read.csv(here("data", "raw", "msg.csv"))
 # wordcloud2(data = ds, shape = "cardioid")
 ```
 
+<div style="display:flex; justify-content:space-between; align-items:center;">
+  <img src="assets/data_viz.png"  alt="Data Viz 1" style="width:45%;">
+  <img src="assets/data_viz2.jpg" alt="Data Viz 2" style="width:45%;">
+</div>
+
+
+
+
+
 <div class="contact-footer">
 [Email](mailto:smohamm2@macalester.edu){.btn-contact}
 [GitHub](https://github.com/Sohail-44){.btn-contact}
