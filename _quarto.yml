@@ -49,8 +49,8 @@ book:
     logo: assets/sidebar-logo.png
     logo-alt: "Random negative space illustration"
     collapse-level: 2
-    style: "docked"
-    pinned: true
+    style: "floating"
+    pinned: false
     search: true
     # tools:
     #   - icon: "filetype-doc"
@@ -85,8 +85,8 @@ book:
 format:
   html:
     theme: # bootswatch themes--other options https://bootswatch.com/
-      light: minty
-      dark: slate
+      light: Cosmo
+      dark: Cyborg
     search: true
     toc: true
     toc-depth: 3
