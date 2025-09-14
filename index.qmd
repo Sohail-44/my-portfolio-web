@@ -1,15 +1,7 @@
 # Welcome {.unnumbered}
 
-Welcome to my portfolio!I'm Sohail, an aspiring Data Scientist and I'm passionate about understanding the flow of data from the bottom up, from data generation to AI/ML. I/m skilled at Python, SQL, ETl/ELT, Databricks, AWS/Azure, Statistical Machine Learning along with some experience in Data Engineering Fundamentals. Please, use the side bar on the left for navigation.
+Welcome to my portfolio!I am Sohail, an aspiring Data Scientist and I'm passionate about understanding the flow of data from the bottom up, from data generation to AI/ML. I/m skilled at Python, SQL, ETl/ELT, Databricks, AWS/Azure, Statistical Machine Learning along with some experience in Data Engineering Fundamentals. Please, use the side bar on the left for navigation.
 
-
-<div class="contact-links">
-
-[Email](smohamm2@macalester.edu)
-[GitHub](https://github.com/Sohail-44)
-[LinkedIn](https://www.linkedin.com/in/mohammed-sohail-khan-46489922a/)
-
-</div>
 
 ```{r}
 #| output: false
@@ -46,3 +38,10 @@ ds <- read.csv(here("data", "raw", "msg.csv"))
 # wordcloud2(data = ds, shape = "cardioid")
 ```
 
+<div class="contact-footer">
+[Email](mailto:smohamm2@macalester.edu){.btn-contact}
+[GitHub](https://github.com/Sohail-44){.btn-contact}
+[LinkedIn](https://www.linkedin.com/in/mohammed-sohail-khan-46489922a/){.btn-contact}
+[Data Science Portfolio](https://mac-stat212-f25.github.io/portfolio-Sohail-44/){.btn-contact}
+[Statistical ML Portfolio](https://sohail-44.github.io/StatsML/){.btn-contact}
+</div>
