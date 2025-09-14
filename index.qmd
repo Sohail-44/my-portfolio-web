@@ -41,8 +41,8 @@ ds <- read.csv(here("data", "raw", "msg.csv"))
 ```
 
 ```{r}
-#| echo: false
+# echo: false
 
-wordcloud2(data = ds, shape = "cardioid")
+# wordcloud2(data = ds, shape = "cardioid")
 ```
 
