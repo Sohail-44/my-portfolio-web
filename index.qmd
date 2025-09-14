@@ -2,11 +2,12 @@
 
 Welcome to my portfolio!I'm Sohail, an aspiring Data Scientist and I'm passionate about understanding the flow of data from the bottom up, from data generation to AI/ML. I/m skilled at Python, SQL, ETl/ELT, Databricks, AWS/Azure, Statistical Machine Learning along with some experience in Data Engineering Fundamentals. Please, use the side bar on the left for navigation.
 
-### <div class="contact-links">
 
-[Email](mailto:yourname@example.com)
-[GitHub](https://github.com/YourGitHubUsername)
-[LinkedIn](https://www.linkedin.com/in/YourLinkedInProfile/)
+<div class="contact-links">
+
+[Email](Email me at:smohamm2@macalester.edu)
+[GitHub](https://github.com/Sohail-44)
+[LinkedIn](https://www.linkedin.com/in/mohammed-sohail-khan-46489922a/)
 
 </div>
 
