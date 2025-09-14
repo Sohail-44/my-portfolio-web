@@ -79,3 +79,16 @@ a:active {
   color: #f0f0f0;
   box-shadow: 40px 0 100px #008cff85, -40px 0 100px #e100ffbb ;
 }
+
+.contact-links a {
+  display: inline-block;
+  margin: 0 0.4em;
+  padding: 0.4em 0.8em;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: white !important;
+  text-decoration: none;
+}
+.contact-links a:hover {
+  background: #2563eb;
+}
