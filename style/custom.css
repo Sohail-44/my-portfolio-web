@@ -92,3 +92,31 @@ a:active {
 .contact-links a:hover {
   background: #2563eb;
 }
+
+
+.contact-footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.contact-footer a.btn-contact {
+  background-color: #3b82f6;
+  color: #fff !important;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.contact-footer a.btn-contact:hover,
+.contact-footer a.btn-contact:focus {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
