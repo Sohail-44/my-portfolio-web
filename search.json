@@ -16,7 +16,7 @@
     "section": "",
     "text": "Add content here",
     "crumbs": [
-      "Prof Viz",
+      "Data-Science-Projects",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Professional Viz Sample</span>"
     ]
   },
@@ -27,7 +27,7 @@
     "section": "",
     "text": "Add content here",
     "crumbs": [
-      "TidyTuesday",
+      "Machine-Learning-Projects",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>TidyTuesday Sample 1</span>"
     ]
   },
@@ -38,7 +38,7 @@
     "section": "",
     "text": "Add content here",
     "crumbs": [
-      "TidyTuesday",
+      "Machine-Learning-Projects",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>TidyTuesday Sample 2</span>"
     ]
   },
@@ -49,7 +49,7 @@
     "section": "",
     "text": "Add content here",
     "crumbs": [
-      "In-Class Activities",
+      "Data-Engineering-Projects",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>ICA Sample 1</span>"
     ]
   },
@@ -60,7 +60,7 @@
     "section": "",
     "text": "Add content here",
     "crumbs": [
-      "In-Class Activities",
+      "Data-Engineering-Projects",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>ICA Sample 2</span>"
     ]
   },
