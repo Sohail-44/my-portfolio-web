@@ -51,6 +51,33 @@ a:hover {
 a:active {
   text-decoration: none;
 }
+.code-tools-button {
+  padding: .2em .5em;
+  background-color: #ffffff;
+  border: none;
+  color: #161a20;
+  border-radius: 1000px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.code-tools-button::after {
+  content: '';
+  position: absolute;
+  height: 110%;
+  width: 105%;
+  border-radius: 1000px;
+  background-image: linear-gradient(to bottom right, #008cff, #e100ff);
+  z-index: -1;
+}
+
+.code-tools-button:hover {
+  z-index: 0;
+  color: #f0f0f0;
+  box-shadow: 40px 0 100px #008cff85, -40px 0 100px #e100ffbb ;
+}
 
 .contact-footer {
   position: relative;
