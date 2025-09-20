@@ -51,7 +51,6 @@ a:hover {
 a:active {
   text-decoration: none;
 }
-
 .code-tools-button {
   padding: .2em .5em;
   background-color: #ffffff;
@@ -80,43 +79,47 @@ a:active {
   box-shadow: 40px 0 100px #008cff85, -40px 0 100px #e100ffbb ;
 }
 
-.contact-links a {
-  display: inline-block;
-  margin: 0 0.4em;
-  padding: 0.4em 0.8em;
-  border-radius: 6px;
-  background: #3b82f6;
-  color: white !important;
-  text-decoration: none;
-}
-.contact-links a:hover {
-  background: #2563eb;
-}
-
-
 .contact-footer {
   position: relative;
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  flex-direction: column;     /* stack heading over buttons */
+  align-items: center;
+  gap: 1.2rem;                /* space between heading and button row */
   margin-top: 3rem;
   padding: 1.5rem 0;
   border-top: 1px solid #e5e7eb;
 }
 
-.contact-footer a.btn-contact {
-  background-color: #3b82f6;
-  color: #fff !important;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+/* heading above the buttons */
+.contact-footer .connect-heading {
+  font-size: 1.3rem;
   font-weight: 600;
-  text-decoration: none;
-  transition: background 0.25s ease, transform 0.25s ease;
+  margin: 0;
+  color: #374151;             /* dark grey text */
 }
 
-.contact-footer a.btn-contact:hover,
-.contact-footer a.btn-contact:focus {
-  background-color: #2563eb;
+/* row of buttons */
+.contact-links {
+  display: flex;
+  gap: 0.8rem;                /* spacing between buttons */
+}
+
+/* smaller, modern grey buttons */
+.contact-links a.btn-contact {
+  background-color: #9ca3af;  /* neutral grey */
+  color: #fff !important;
+  padding: 0.45rem 0.9rem;    /* slightly smaller than before */
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+/* hover effect: darker grey + subtle lift */
+.contact-links a.btn-contact:hover,
+.contact-links a.btn-contact:focus {
+  background-color: #6b7280;  /* darker grey */
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
 }

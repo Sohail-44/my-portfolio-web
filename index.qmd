@@ -1,6 +1,8 @@
 # Welcome {.unnumbered}
 
-Welcome to my portfolio!I am Sohail, an aspiring Data Scientist and I'm passionate about understanding the flow of data from the bottom up, from data generation to AI/ML. I/m skilled at Python, SQL, ETl/ELT, Databricks, AWS/Azure, Statistical Machine Learning along with some experience in Data Engineering Fundamentals. Please, use the side bar on the left for navigation.
+Welcome to my portfolio! I am Sohail, an aspiring Data Scientist, and I'm passionate about understanding the flow of data from the bottom up — from data generation to AI/ML. Check out my Data Science, Machine Learning, and Data Engineering Projects. I would love your feedback, let’s connect to grow together.
+
+Please, use the side bar on the left for navigation.
 
 
 ```{r}
@@ -37,20 +39,17 @@ ds <- read.csv(here("data", "raw", "msg.csv"))
 
 # wordcloud2(data = ds, shape = "cardioid")
 ```
-
 <div style="display:flex; justify-content:space-between; align-items:center;">
   <img src="assets/data_viz.png"  alt="Data Viz 1" style="width:45%;">
   <img src="assets/data_viz2.jpg" alt="Data Viz 2" style="width:45%;">
 </div>
 
-
-
-
-
 <div class="contact-footer">
-[Email](mailto:smohamm2@macalester.edu){.btn-contact}
-[GitHub](https://github.com/Sohail-44){.btn-contact}
-[LinkedIn](https://www.linkedin.com/in/mohammed-sohail-khan-46489922a/){.btn-contact}
-[Data Science Portfolio](https://mac-stat212-f25.github.io/portfolio-Sohail-44/){.btn-contact}
-[Statistical ML Portfolio](https://sohail-44.github.io/StatsML/){.btn-contact}
-</div>
+  <h3 class="connect-heading">Let’s Connect!</h3>
+  <div class="contact-links">
+ [Email](mailto:smohamm2@macalester.edu){.btn-contact} [GitHub](https://github.com/Sohail-44){.btn-contact} [LinkedIn](https://www.linkedin.com/in/mohammed-sohail-khan-46489922a/){.btn-contact} </div>
+
+
+
+
+

@@ -1,0 +1,58 @@
+---
+title: "Netflix ELT Pipeline End to End"
+---
+
+```{r}
+library(reticulate) # r package that talks to python 
+use_condaenv("base", required = TRUE) # using my conda environment base
+py_config() # configuring it
+```
+
+```{python}
+import pandas as pd
+import os
+```
+
+### Basic EDA 
+```{python}
+os.getcwd()
+df_netflix = pd.read_csv("../../data/raw/netflix_titles.csv") # was in src/ica, so had to come up two directories
+
+```
+
+```{python}
+df_netflix.head()
+```
+
+```{python}
+df_netflix.shape
+```
+
+```{python}
+df_netflix.info()
+```
+
+```{python}
+df_netflix[df_netflix.show_id=='s5023'] # seeing the title for a particular particular id not showing other foreign characters
+```
+```{python}
+# checking the maximum length of title -- to put as char in SQL
+max(df_netflix.title.str.len()) # 104
+```
+
+```{python}
+# seeing total number of missing values
+df_netflix.isna().sum() # a lot of missing values in director, cast and country  
+```
+```{python}
+# similar checking for rating 
+max(df_netflix.rating.str.len()) # 8
+# similarly checking for duration 
+max(df_netflix.duration.str.len()) # 10
+```
+
+```{python}
+# lets access some columns to understand more our data and also about user preferencences 
+df_netflix['type']
+```
+

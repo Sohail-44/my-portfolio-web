@@ -60,16 +60,16 @@ book:
     - text: "Welcome"
       href: index.qmd
 
-    - part: "Prof Viz"
+    - part: "Data Science Projects"
       chapters:
       - src/pv/pv-01.qmd
 
-    - part: "TidyTuesday"
+    - part: "Machine Learning Projects"
       chapters:
       - src/tt/2025-07-08.qmd
       - src/tt/2025-07-15.qmd
 
-    - part: "In-Class Activities"
+    - part: "Data Engineering Projects"
       chapters:
       - src/ica/ica-sample1.qmd
       - src/ica/ica-sample2.qmd
@@ -91,7 +91,7 @@ format:
     toc: true
     toc-depth: 3
     link-external-newwindow: true
-    css: style/custom.css
+    css: /style/custom.css
     fontsize: 1em
     smooth-scroll: true
     code-overflow: scroll
