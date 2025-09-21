@@ -19,7 +19,7 @@ import numpy as np
 ```
 
 ### Donwload the Raw CSV data here 
-[Download Raw CSV](data/raw/netflix_titles.csv){.btn-download download}
+[Download Raw CSV](https://github.com/Sohail-44/Netflix_ELT_E2E/blob/main/EDA_Cleaning/netflix_titles.csv)
 
 
 ### Basic EDA 
@@ -393,9 +393,4 @@ having count(distinct ng.genre) = 2; -- done
 
 
 
-
-
-
-### Donwload the cleaned CSV data here 
-[Download Processed CSV](data/processed/cleaned_netflix.csv){.btn-download download}
 
