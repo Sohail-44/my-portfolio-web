@@ -260,12 +260,7 @@ cookieconsent.run({
   <ul>
 <li><a href="#donwload-the-raw-csv-data-here" id="toc-donwload-the-raw-csv-data-here" class="nav-link active" data-scroll-target="#donwload-the-raw-csv-data-here">Donwload the Raw CSV data here</a></li>
   <li><a href="#basic-eda" id="toc-basic-eda" class="nav-link" data-scroll-target="#basic-eda">Basic EDA</a></li>
-  <li>
-<a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">—————– Data Cleaning —————————————</a>
-  <ul class="collapse">
-<li><a href="#donwload-the-cleaned-csv-data-here" id="toc-donwload-the-cleaned-csv-data-here" class="nav-link" data-scroll-target="#donwload-the-cleaned-csv-data-here">Donwload the cleaned CSV data here</a></li>
-  </ul>
-</li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">—————– Data Cleaning —————————————</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -284,7 +279,15 @@ cookieconsent.run({
   
 
 
-</header><div class="cell">
+</header><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../../assets/postgresql.png" class="img-fluid figure-img"></p>
+<figcaption>PostgreSQL</figcaption></figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../../assets/proj_architecture.png" class="img-fluid figure-img"></p>
+<figcaption>Project Architecture</figcaption></figure>
+</div>
+<div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(reticulate) <span class="co"># r package that talks to python </span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">use_condaenv</span>(<span class="st">"base"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>) <span class="co"># using my conda environment base</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">py_config</span>() <span class="co"># configuring it</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -308,7 +311,7 @@ NOTE: Python version was forced by use_python() function</code></pre>
 </details>
 </div>
 <section id="donwload-the-raw-csv-data-here" class="level3"><h3 class="anchored" data-anchor-id="donwload-the-raw-csv-data-here">Donwload the Raw CSV data here</h3>
-<p><a href="data/raw/netflix_titles.csv">Download Raw CSV</a>{.btn-download download}</p>
+<p><a href="https://github.com/Sohail-44/Netflix_ELT_E2E/blob/main/EDA_Cleaning/netflix_titles.csv">Download Raw CSV</a></p>
 </section><section id="basic-eda" class="level3"><h3 class="anchored" data-anchor-id="basic-eda">Basic EDA</h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>os.getcwd()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -660,13 +663,12 @@ group by director, single_country ) m on nr.director = m.director where nr.count
 <p>select ng.genre, floor(avg(cast(replace(n.duration, ’ min’, ’‘) as int))) as avg_duration from netflix_cleaned n inner join netflix_genre ng on n.show_id = ng.show_id where n.type = ’Movie’ and n.duration ~ ‘<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>+ min$’ group by ng.genre; – yes we got it</p>
 <p>– Find the list of directors who have created horror and comedy movies both and display director names along with no. of horror and comedy movies</p>
 <p>select nd.director, count(distinct case when ng.genre = ‘Comedies’ then n.show_id end) as no_of_comedy, count(distinct case when ng.genre = ‘Horror Movies’ then n.show_id end) as no_of_horror from netflix_cleaned n inner join netflix_genre ng on n.show_id = ng.show_id inner join netflix_directors nd on n.show_id = nd.show_id where n.type = ‘Movie’ and ng.genre in (‘Comedies’, ‘Horror Movies’) group by nd.director having count(distinct ng.genre) = 2; – done</p>
-<section id="donwload-the-cleaned-csv-data-here" class="level3"><h3 class="anchored" data-anchor-id="donwload-the-cleaned-csv-data-here">Donwload the cleaned CSV data here</h3>
-<p><a href="data/processed/cleaned_netflix.csv">Download Processed CSV</a>{.btn-download download}</p>
+<p><a href="https://github.com/Sohail-44/Netflix_ELT_E2E/blob/main/EDA_Cleaning/netflix_cleaned%20.csv">Download Cleaned CSV</a></p>
 
 
 <!-- -->
 
-</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>0-9<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -1300,402 +1302,405 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb53-2"><a href="#cb53-2"></a><span class="an">title:</span><span class="co"> "Netflix ELT Pipeline End to End"</span></span>
 <span id="cb53-3"><a href="#cb53-3"></a><span class="co">---</span></span>
 <span id="cb53-4"><a href="#cb53-4"></a></span>
-<span id="cb53-5"><a href="#cb53-5"></a></span>
+<span id="cb53-5"><a href="#cb53-5"></a><span class="al">![PostgreSQL](../../assets/postgresql.png)</span></span>
 <span id="cb53-6"><a href="#cb53-6"></a></span>
-<span id="cb53-9"><a href="#cb53-9"></a><span class="in">```{r}</span></span>
-<span id="cb53-10"><a href="#cb53-10"></a><span class="fu">library</span>(reticulate) <span class="co"># r package that talks to python </span></span>
-<span id="cb53-11"><a href="#cb53-11"></a><span class="fu">use_condaenv</span>(<span class="st">"base"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>) <span class="co"># using my conda environment base</span></span>
-<span id="cb53-12"><a href="#cb53-12"></a><span class="fu">py_config</span>() <span class="co"># configuring it</span></span>
-<span id="cb53-13"><a href="#cb53-13"></a><span class="in">```</span></span>
-<span id="cb53-14"><a href="#cb53-14"></a></span>
-<span id="cb53-17"><a href="#cb53-17"></a><span class="in">```{python}</span></span>
-<span id="cb53-18"><a href="#cb53-18"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb53-19"><a href="#cb53-19"></a><span class="im">import</span> os</span>
-<span id="cb53-20"><a href="#cb53-20"></a><span class="im">import</span> seaborn <span class="im">as</span> sb</span>
-<span id="cb53-21"><a href="#cb53-21"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb53-22"><a href="#cb53-22"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb53-23"><a href="#cb53-23"></a><span class="in">```</span></span>
-<span id="cb53-24"><a href="#cb53-24"></a></span>
-<span id="cb53-25"><a href="#cb53-25"></a><span class="fu">### Donwload the Raw CSV data here </span></span>
-<span id="cb53-26"><a href="#cb53-26"></a><span class="co">[</span><span class="ot">Download Raw CSV</span><span class="co">](data/raw/netflix_titles.csv)</span>{.btn-download download}</span>
-<span id="cb53-27"><a href="#cb53-27"></a></span>
+<span id="cb53-7"><a href="#cb53-7"></a><span class="al">![Project Architecture](../../assets/proj_architecture.png)</span></span>
+<span id="cb53-8"><a href="#cb53-8"></a></span>
+<span id="cb53-9"><a href="#cb53-9"></a></span>
+<span id="cb53-10"><a href="#cb53-10"></a></span>
+<span id="cb53-13"><a href="#cb53-13"></a><span class="in">```{r}</span></span>
+<span id="cb53-14"><a href="#cb53-14"></a><span class="fu">library</span>(reticulate) <span class="co"># r package that talks to python </span></span>
+<span id="cb53-15"><a href="#cb53-15"></a><span class="fu">use_condaenv</span>(<span class="st">"base"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>) <span class="co"># using my conda environment base</span></span>
+<span id="cb53-16"><a href="#cb53-16"></a><span class="fu">py_config</span>() <span class="co"># configuring it</span></span>
+<span id="cb53-17"><a href="#cb53-17"></a><span class="in">```</span></span>
+<span id="cb53-18"><a href="#cb53-18"></a></span>
+<span id="cb53-21"><a href="#cb53-21"></a><span class="in">```{python}</span></span>
+<span id="cb53-22"><a href="#cb53-22"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb53-23"><a href="#cb53-23"></a><span class="im">import</span> os</span>
+<span id="cb53-24"><a href="#cb53-24"></a><span class="im">import</span> seaborn <span class="im">as</span> sb</span>
+<span id="cb53-25"><a href="#cb53-25"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb53-26"><a href="#cb53-26"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb53-27"><a href="#cb53-27"></a><span class="in">```</span></span>
 <span id="cb53-28"><a href="#cb53-28"></a></span>
-<span id="cb53-29"><a href="#cb53-29"></a><span class="fu">### Basic EDA </span></span>
-<span id="cb53-32"><a href="#cb53-32"></a><span class="in">```{python}</span></span>
-<span id="cb53-33"><a href="#cb53-33"></a>os.getcwd()</span>
-<span id="cb53-34"><a href="#cb53-34"></a>df_netflix <span class="op">=</span> pd.read_csv(<span class="st">"../../data/raw/netflix_titles.csv"</span>) <span class="co"># was in src/ica, so had to come up two directories</span></span>
-<span id="cb53-35"><a href="#cb53-35"></a><span class="in">```</span></span>
-<span id="cb53-36"><a href="#cb53-36"></a></span>
-<span id="cb53-37"><a href="#cb53-37"></a></span>
-<span id="cb53-38"><a href="#cb53-38"></a></span>
-<span id="cb53-41"><a href="#cb53-41"></a><span class="in">```{python}</span></span>
-<span id="cb53-42"><a href="#cb53-42"></a>df_netflix.head()</span>
-<span id="cb53-43"><a href="#cb53-43"></a><span class="in">```</span></span>
-<span id="cb53-44"><a href="#cb53-44"></a></span>
-<span id="cb53-47"><a href="#cb53-47"></a><span class="in">```{python}</span></span>
-<span id="cb53-48"><a href="#cb53-48"></a>df_netflix.shape</span>
-<span id="cb53-49"><a href="#cb53-49"></a><span class="in">```</span></span>
-<span id="cb53-50"><a href="#cb53-50"></a></span>
-<span id="cb53-53"><a href="#cb53-53"></a><span class="in">```{python}</span></span>
-<span id="cb53-54"><a href="#cb53-54"></a>df_netflix.info()</span>
-<span id="cb53-55"><a href="#cb53-55"></a><span class="in">```</span></span>
-<span id="cb53-56"><a href="#cb53-56"></a></span>
-<span id="cb53-59"><a href="#cb53-59"></a><span class="in">```{python}</span></span>
-<span id="cb53-60"><a href="#cb53-60"></a>df_netflix[df_netflix.show_id<span class="op">==</span><span class="st">'s5023'</span>] <span class="co"># seeing the title for a particular particular id not showing other foreign characters</span></span>
-<span id="cb53-61"><a href="#cb53-61"></a><span class="in">```</span></span>
-<span id="cb53-64"><a href="#cb53-64"></a><span class="in">```{python}</span></span>
-<span id="cb53-65"><a href="#cb53-65"></a><span class="co"># checking the maximum length of title -- to put as char in SQL</span></span>
-<span id="cb53-66"><a href="#cb53-66"></a><span class="bu">max</span>(df_netflix.title.<span class="bu">str</span>.<span class="bu">len</span>()) <span class="co"># 104</span></span>
-<span id="cb53-67"><a href="#cb53-67"></a><span class="in">```</span></span>
-<span id="cb53-68"><a href="#cb53-68"></a></span>
-<span id="cb53-71"><a href="#cb53-71"></a><span class="in">```{python}</span></span>
-<span id="cb53-72"><a href="#cb53-72"></a><span class="co"># seeing total number of missing values</span></span>
-<span id="cb53-73"><a href="#cb53-73"></a>df_netflix.isna().<span class="bu">sum</span>() <span class="co"># a lot of missing values in director, cast and country  </span></span>
-<span id="cb53-74"><a href="#cb53-74"></a><span class="in">```</span></span>
-<span id="cb53-77"><a href="#cb53-77"></a><span class="in">```{python}</span></span>
-<span id="cb53-78"><a href="#cb53-78"></a><span class="co"># similar checking for rating </span></span>
-<span id="cb53-79"><a href="#cb53-79"></a><span class="bu">max</span>(df_netflix.rating.<span class="bu">str</span>.<span class="bu">len</span>()) <span class="co"># 8</span></span>
-<span id="cb53-80"><a href="#cb53-80"></a><span class="co"># similarly checking for duration </span></span>
-<span id="cb53-81"><a href="#cb53-81"></a><span class="bu">max</span>(df_netflix.duration.<span class="bu">str</span>.<span class="bu">len</span>()) <span class="co"># 10</span></span>
-<span id="cb53-82"><a href="#cb53-82"></a><span class="in">```</span></span>
-<span id="cb53-83"><a href="#cb53-83"></a></span>
-<span id="cb53-86"><a href="#cb53-86"></a><span class="in">```{python}</span></span>
-<span id="cb53-87"><a href="#cb53-87"></a><span class="co"># lets access some columns to understand more our data and also about user preferencences </span></span>
-<span id="cb53-88"><a href="#cb53-88"></a>df_netflix[<span class="st">'type'</span>]</span>
-<span id="cb53-89"><a href="#cb53-89"></a><span class="in">```</span></span>
-<span id="cb53-92"><a href="#cb53-92"></a><span class="in">```{python}</span></span>
-<span id="cb53-93"><a href="#cb53-93"></a><span class="co"># I can only see Movie and TV Show in the type -- types of entertainment media on Netflix </span></span>
-<span id="cb53-94"><a href="#cb53-94"></a><span class="co"># Lets do a simple count using value counts method</span></span>
-<span id="cb53-95"><a href="#cb53-95"></a>df_netflix[<span class="st">'type'</span>].value_counts()</span>
-<span id="cb53-96"><a href="#cb53-96"></a><span class="in">```</span></span>
-<span id="cb53-97"><a href="#cb53-97"></a></span>
-<span id="cb53-100"><a href="#cb53-100"></a><span class="in">```{python}</span></span>
-<span id="cb53-101"><a href="#cb53-101"></a><span class="co"># Interesting info from value counts -- people are preferring Movie compared to TV Show</span></span>
-<span id="cb53-102"><a href="#cb53-102"></a><span class="co"># Lets graph it and then do some percentage analysis</span></span>
-<span id="cb53-103"><a href="#cb53-103"></a>sb.barplot(</span>
-<span id="cb53-104"><a href="#cb53-104"></a>    x<span class="op">=</span>df_netflix[<span class="st">'type'</span>].value_counts().index,</span>
-<span id="cb53-105"><a href="#cb53-105"></a>    y<span class="op">=</span>df_netflix[<span class="st">'type'</span>].value_counts().values</span>
-<span id="cb53-106"><a href="#cb53-106"></a>)</span>
-<span id="cb53-107"><a href="#cb53-107"></a>plt.show()</span>
-<span id="cb53-108"><a href="#cb53-108"></a><span class="in">```</span></span>
-<span id="cb53-111"><a href="#cb53-111"></a><span class="in">```{python}</span></span>
-<span id="cb53-112"><a href="#cb53-112"></a><span class="co"># Percentage analysis </span></span>
-<span id="cb53-113"><a href="#cb53-113"></a>Movie_pref <span class="op">=</span> <span class="dv">6131</span></span>
-<span id="cb53-114"><a href="#cb53-114"></a>TV_Show <span class="op">=</span> <span class="dv">2676</span></span>
-<span id="cb53-115"><a href="#cb53-115"></a>Total_Content <span class="op">=</span> Movie_pref <span class="op">+</span> TV_Show</span>
-<span id="cb53-116"><a href="#cb53-116"></a></span>
-<span id="cb53-117"><a href="#cb53-117"></a>MoviePercent <span class="op">=</span> Movie_pref <span class="op">*</span> <span class="dv">100</span><span class="op">/</span> Total_Content</span>
-<span id="cb53-118"><a href="#cb53-118"></a>TvShow_Percent <span class="op">=</span> TV_Show <span class="op">*</span> <span class="dv">100</span><span class="op">/</span> Total_Content</span>
-<span id="cb53-119"><a href="#cb53-119"></a></span>
-<span id="cb53-120"><a href="#cb53-120"></a><span class="bu">print</span>(MoviePercent) <span class="co"># 69.61507891449983 ~ 70%</span></span>
-<span id="cb53-121"><a href="#cb53-121"></a><span class="bu">print</span>(TvShow_Percent) <span class="co"># 30.38492108550017 ~ 30%</span></span>
-<span id="cb53-122"><a href="#cb53-122"></a><span class="in">```</span></span>
-<span id="cb53-125"><a href="#cb53-125"></a><span class="in">```{python}</span></span>
-<span id="cb53-126"><a href="#cb53-126"></a><span class="co"># Visualizing Entertainment preference based on percentage analysis </span></span>
-<span id="cb53-127"><a href="#cb53-127"></a>Entertainment_Type <span class="op">=</span> [MoviePercent, TvShow_Percent]</span>
-<span id="cb53-128"><a href="#cb53-128"></a>Labels <span class="op">=</span> [<span class="st">"% who prefer Movies"</span>, <span class="st">"% who prefer TV Shows"</span>]</span>
-<span id="cb53-129"><a href="#cb53-129"></a></span>
-<span id="cb53-130"><a href="#cb53-130"></a>sb.barplot(</span>
-<span id="cb53-131"><a href="#cb53-131"></a>    x<span class="op">=</span>Labels,</span>
-<span id="cb53-132"><a href="#cb53-132"></a>    y<span class="op">=</span>Entertainment_Type,</span>
-<span id="cb53-133"><a href="#cb53-133"></a>    palette<span class="op">=</span>sb.color_palette(<span class="st">"Blues"</span>, as_cmap<span class="op">=</span><span class="va">True</span>)([v<span class="op">/</span><span class="bu">max</span>(Entertainment_Type) <span class="cf">for</span> v <span class="kw">in</span> Entertainment_Type])</span>
-<span id="cb53-134"><a href="#cb53-134"></a>)</span>
-<span id="cb53-135"><a href="#cb53-135"></a></span>
-<span id="cb53-136"><a href="#cb53-136"></a>plt.title(<span class="st">"Entertainment Type Preferred"</span>)</span>
-<span id="cb53-137"><a href="#cb53-137"></a>plt.ylabel(<span class="st">"Percentage"</span>)</span>
-<span id="cb53-138"><a href="#cb53-138"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span>
-<span id="cb53-139"><a href="#cb53-139"></a>plt.show()</span>
-<span id="cb53-140"><a href="#cb53-140"></a><span class="in">```</span></span>
-<span id="cb53-143"><a href="#cb53-143"></a><span class="in">```{python}</span></span>
-<span id="cb53-144"><a href="#cb53-144"></a><span class="co"># Interesting this is showing how many films each director has directed </span></span>
-<span id="cb53-145"><a href="#cb53-145"></a>df_netflix[<span class="st">'director'</span>].value_counts() <span class="co"># altogether 4528 directors</span></span>
-<span id="cb53-146"><a href="#cb53-146"></a></span>
-<span id="cb53-147"><a href="#cb53-147"></a><span class="co"># lets do this : 1. lets see how many directors who have director 5 or more movies  </span></span>
-<span id="cb53-148"><a href="#cb53-148"></a>Top_directors <span class="op">=</span> df_netflix[<span class="st">'director'</span>].value_counts()<span class="op">&gt;=</span><span class="dv">5</span></span>
-<span id="cb53-149"><a href="#cb53-149"></a><span class="in">```</span></span>
-<span id="cb53-152"><a href="#cb53-152"></a><span class="in">```{python}</span></span>
-<span id="cb53-153"><a href="#cb53-153"></a>Top_directors.value_counts()</span>
-<span id="cb53-154"><a href="#cb53-154"></a><span class="co"># Wow so basically Only 92 out of 4528  Directors who have directed in 5 or more movies -- most of the directors are amateur </span></span>
-<span id="cb53-155"><a href="#cb53-155"></a></span>
-<span id="cb53-156"><a href="#cb53-156"></a>four_or_less_m_directors <span class="op">=</span> <span class="dv">4436</span></span>
-<span id="cb53-157"><a href="#cb53-157"></a>five_or_more_m_directors <span class="op">=</span> <span class="dv">92</span></span>
-<span id="cb53-158"><a href="#cb53-158"></a>Total_directors <span class="op">=</span> <span class="dv">4528</span></span>
-<span id="cb53-159"><a href="#cb53-159"></a></span>
-<span id="cb53-160"><a href="#cb53-160"></a>four_or_less_percent <span class="op">=</span> <span class="dv">4436</span><span class="op">*</span><span class="dv">100</span><span class="op">/</span><span class="dv">4528</span></span>
-<span id="cb53-161"><a href="#cb53-161"></a>five_or_more_percent <span class="op">=</span> <span class="dv">92</span><span class="op">*</span><span class="dv">100</span><span class="op">/</span><span class="dv">4528</span></span>
-<span id="cb53-162"><a href="#cb53-162"></a><span class="in">```</span></span>
-<span id="cb53-165"><a href="#cb53-165"></a><span class="in">```{python}</span></span>
-<span id="cb53-166"><a href="#cb53-166"></a><span class="co"># % of Directors who directed 4 or less movies </span></span>
-<span id="cb53-167"><a href="#cb53-167"></a>four_or_less_percent</span>
-<span id="cb53-168"><a href="#cb53-168"></a><span class="co"># % of Directors who directed 5 or more movies </span></span>
-<span id="cb53-169"><a href="#cb53-169"></a>five_or_more_percent</span>
-<span id="cb53-170"><a href="#cb53-170"></a><span class="in">```</span></span>
-<span id="cb53-173"><a href="#cb53-173"></a><span class="in">```{python}</span></span>
-<span id="cb53-174"><a href="#cb53-174"></a><span class="co"># Figuring out top countries </span></span>
-<span id="cb53-175"><a href="#cb53-175"></a>df_netflix[<span class="st">'country'</span>].value_counts().head(<span class="dv">5</span>) <span class="co"># Wow US, India, UK, Japan and South Korea top five countries producing</span></span>
-<span id="cb53-176"><a href="#cb53-176"></a><span class="co"># netflix shows </span></span>
-<span id="cb53-177"><a href="#cb53-177"></a><span class="in">```</span></span>
-<span id="cb53-180"><a href="#cb53-180"></a><span class="in">```{python}</span></span>
-<span id="cb53-181"><a href="#cb53-181"></a><span class="co"># top five countries producers visulaization</span></span>
-<span id="cb53-182"><a href="#cb53-182"></a></span>
-<span id="cb53-183"><a href="#cb53-183"></a>plt.figure()  <span class="co"># starting fresh figure not to overlap</span></span>
-<span id="cb53-184"><a href="#cb53-184"></a>sb.barplot(x<span class="op">=</span>df_netflix[<span class="st">'country'</span>].value_counts().head(<span class="dv">5</span>).index,</span>
-<span id="cb53-185"><a href="#cb53-185"></a>           y<span class="op">=</span>df_netflix[<span class="st">'country'</span>].value_counts().head(<span class="dv">5</span>).values)</span>
-<span id="cb53-186"><a href="#cb53-186"></a>plt.title(<span class="st">"Top 5 Countries"</span>)</span>
-<span id="cb53-187"><a href="#cb53-187"></a>plt.show()</span>
-<span id="cb53-188"><a href="#cb53-188"></a></span>
-<span id="cb53-189"><a href="#cb53-189"></a><span class="in">```</span></span>
-<span id="cb53-192"><a href="#cb53-192"></a><span class="in">```{python}</span></span>
-<span id="cb53-193"><a href="#cb53-193"></a><span class="co"># lets make a filter of movies title and its description </span></span>
-<span id="cb53-194"><a href="#cb53-194"></a>df_netflix[[<span class="st">'title'</span>, <span class="st">'description'</span>]]</span>
-<span id="cb53-195"><a href="#cb53-195"></a><span class="in">```</span></span>
-<span id="cb53-198"><a href="#cb53-198"></a><span class="in">```{python}</span></span>
-<span id="cb53-199"><a href="#cb53-199"></a><span class="co"># lets try to basically make a dictionary where key is title name and value is its description</span></span>
-<span id="cb53-200"><a href="#cb53-200"></a>title_desc_dict <span class="op">=</span> {<span class="st">"df_netflix['title']"</span> : <span class="st">"df_netflix['description']"</span>}</span>
-<span id="cb53-201"><a href="#cb53-201"></a><span class="bu">print</span>(title_desc_dict[<span class="st">'df_netflix[</span><span class="ch">\'</span><span class="st">title</span><span class="ch">\'</span><span class="st">]'</span>])</span>
-<span id="cb53-202"><a href="#cb53-202"></a><span class="in">```</span></span>
-<span id="cb53-203"><a href="#cb53-203"></a></span>
-<span id="cb53-204"><a href="#cb53-204"></a><span class="fu">#### Data Cleaning, transformation and Analysis done in PostgreSQL ( Just displaying code here as text, for more info about database connection visit my github repo Netflix ELT E2E)</span></span>
-<span id="cb53-205"><a href="#cb53-205"></a></span>
-<span id="cb53-206"><a href="#cb53-206"></a>eval: false</span>
-<span id="cb53-207"><a href="#cb53-207"></a></span>
-<span id="cb53-208"><a href="#cb53-208"></a><span class="fu"># ----------------- Data Cleaning --------------------------------------- </span></span>
-<span id="cb53-209"><a href="#cb53-209"></a></span>
-<span id="cb53-210"><a href="#cb53-210"></a>CREATE TABLE IF NOT EXISTS Netflix_RawData </span>
-<span id="cb53-211"><a href="#cb53-211"></a>(   show_id     varchar(10) primary key,</span>
-<span id="cb53-212"><a href="#cb53-212"></a>    "type"      text,</span>
-<span id="cb53-213"><a href="#cb53-213"></a>    title       varchar(150),</span>
-<span id="cb53-214"><a href="#cb53-214"></a>    director    text, </span>
-<span id="cb53-215"><a href="#cb53-215"></a>    "cast"      text,</span>
-<span id="cb53-216"><a href="#cb53-216"></a>    country     text,</span>
-<span id="cb53-217"><a href="#cb53-217"></a>    date_added  date,</span>
-<span id="cb53-218"><a href="#cb53-218"></a>    release_year int, </span>
-<span id="cb53-219"><a href="#cb53-219"></a>    rating      varchar(15),</span>
-<span id="cb53-220"><a href="#cb53-220"></a>    duration    varchar(20),</span>
-<span id="cb53-221"><a href="#cb53-221"></a>    listed_in   text,</span>
-<span id="cb53-222"><a href="#cb53-222"></a>    description text</span>
-<span id="cb53-223"><a href="#cb53-223"></a>)</span>
-<span id="cb53-224"><a href="#cb53-224"></a></span>
-<span id="cb53-225"><a href="#cb53-225"></a>select * from Netflix_RawData;</span>
-<span id="cb53-226"><a href="#cb53-226"></a>select * from Netflix_RawData order by title</span>
-<span id="cb53-227"><a href="#cb53-227"></a></span>
-<span id="cb53-228"><a href="#cb53-228"></a>-- checking if other non-english characters are showing up or not</span>
-<span id="cb53-229"><a href="#cb53-229"></a>select * from Netflix_RawData</span>
-<span id="cb53-230"><a href="#cb53-230"></a>where show_id = 's5023'  -- Amazing the korean characters are showing! </span>
-<span id="cb53-231"><a href="#cb53-231"></a></span>
-<span id="cb53-232"><a href="#cb53-232"></a>-- checking for duplicates : &gt;1</span>
-<span id="cb53-233"><a href="#cb53-233"></a>select show_id, COUNT(*)</span>
-<span id="cb53-234"><a href="#cb53-234"></a>from Netflix_RawData</span>
-<span id="cb53-235"><a href="#cb53-235"></a>group by show_id</span>
-<span id="cb53-236"><a href="#cb53-236"></a>having COUNT(*)&gt;1 --  Show's no duplicates </span>
-<span id="cb53-237"><a href="#cb53-237"></a></span>
-<span id="cb53-238"><a href="#cb53-238"></a>-- Just checking : Removing the duplicates using ctid to uniquely identify each row </span>
-<span id="cb53-239"><a href="#cb53-239"></a>Delete from Netflix_RawData</span>
-<span id="cb53-240"><a href="#cb53-240"></a>where ctid not in (select min (ctid)</span>
-<span id="cb53-241"><a href="#cb53-241"></a>from Netflix_RawData</span>
-<span id="cb53-242"><a href="#cb53-242"></a>group by show_id</span>
-<span id="cb53-243"><a href="#cb53-243"></a>) -- show's 0 deleted which means no duplicates and I can safely make my show_id char</span>
-<span id="cb53-244"><a href="#cb53-244"></a></span>
-<span id="cb53-245"><a href="#cb53-245"></a>-- dropped the table and then created again to add the primary key </span>
-<span id="cb53-246"><a href="#cb53-246"></a></span>
-<span id="cb53-247"><a href="#cb53-247"></a>-- checking for duplicates in the title</span>
-<span id="cb53-248"><a href="#cb53-248"></a>select * from Netflix_RawData</span>
-<span id="cb53-249"><a href="#cb53-249"></a>where title in (</span>
-<span id="cb53-250"><a href="#cb53-250"></a>select title</span>
-<span id="cb53-251"><a href="#cb53-251"></a>from Netflix_RawData</span>
-<span id="cb53-252"><a href="#cb53-252"></a>group by title</span>
-<span id="cb53-253"><a href="#cb53-253"></a>having COUNT(*)&gt;1 </span>
-<span id="cb53-254"><a href="#cb53-254"></a>) -- shows no duplicates </span>
-<span id="cb53-255"><a href="#cb53-255"></a></span>
-<span id="cb53-256"><a href="#cb53-256"></a>-- Since we have many values for single column it hinders our data analyzing abilities such as in listed-in we</span>
-<span id="cb53-257"><a href="#cb53-257"></a>-- we have international TV Show, TV dramas, TV Thrillers and this is the case for many columns we can split this</span>
-<span id="cb53-258"><a href="#cb53-258"></a></span>
-<span id="cb53-259"><a href="#cb53-259"></a>select show_id, trim(director_part) as director</span>
-<span id="cb53-260"><a href="#cb53-260"></a>from Netflix_RawData,</span>
-<span id="cb53-261"><a href="#cb53-261"></a>lateral unnest(string_to_array(director, ',')) AS director_part; -- splitting on the comma</span>
-<span id="cb53-262"><a href="#cb53-262"></a></span>
-<span id="cb53-263"><a href="#cb53-263"></a>-- inserting the new director table in Netflix_RawData</span>
-<span id="cb53-264"><a href="#cb53-264"></a>select show_id, trim (director_part) as director</span>
-<span id="cb53-265"><a href="#cb53-265"></a>into netflix_directors -- creating a new table named netflix_directors and inserting data splitted from directors there </span>
-<span id="cb53-266"><a href="#cb53-266"></a>from  Netflix_RawData,</span>
-<span id="cb53-267"><a href="#cb53-267"></a>lateral unnest(string_to_array(director, ',')) AS director_part; </span>
-<span id="cb53-268"><a href="#cb53-268"></a></span>
-<span id="cb53-269"><a href="#cb53-269"></a>select * from netflix_directors -- proper table created </span>
-<span id="cb53-270"><a href="#cb53-270"></a></span>
-<span id="cb53-271"><a href="#cb53-271"></a>-- lets basically seperate cast, listed_in and country as well and create new table and directly insert </span>
-<span id="cb53-272"><a href="#cb53-272"></a>select show_id,trim (cast_part) as single_cast_member</span>
-<span id="cb53-273"><a href="#cb53-273"></a>intp netflix_cast</span>
-<span id="cb53-274"><a href="#cb53-274"></a>from Netflix_RawData,</span>
-<span id="cb53-275"><a href="#cb53-275"></a>lateral unnest(string_to_array("cast", ',')) AS cast_part;</span>
-<span id="cb53-276"><a href="#cb53-276"></a></span>
-<span id="cb53-277"><a href="#cb53-277"></a>select * from netflix_cast</span>
-<span id="cb53-278"><a href="#cb53-278"></a></span>
-<span id="cb53-279"><a href="#cb53-279"></a>select show_id,Trim(listed_in_part) as genre</span>
-<span id="cb53-280"><a href="#cb53-280"></a>into  netflix_genre</span>
-<span id="cb53-281"><a href="#cb53-281"></a>from Netflix_RawData,</span>
-<span id="cb53-282"><a href="#cb53-282"></a>lateral unnest(string_to_array(listed_in, ',')) as listed_in_part</span>
+<span id="cb53-29"><a href="#cb53-29"></a><span class="fu">### Donwload the Raw CSV data here </span></span>
+<span id="cb53-30"><a href="#cb53-30"></a><span class="co">[</span><span class="ot">Download Raw CSV</span><span class="co">](https://github.com/Sohail-44/Netflix_ELT_E2E/blob/main/EDA_Cleaning/netflix_titles.csv)</span></span>
+<span id="cb53-31"><a href="#cb53-31"></a></span>
+<span id="cb53-32"><a href="#cb53-32"></a></span>
+<span id="cb53-33"><a href="#cb53-33"></a><span class="fu">### Basic EDA </span></span>
+<span id="cb53-36"><a href="#cb53-36"></a><span class="in">```{python}</span></span>
+<span id="cb53-37"><a href="#cb53-37"></a>os.getcwd()</span>
+<span id="cb53-38"><a href="#cb53-38"></a>df_netflix <span class="op">=</span> pd.read_csv(<span class="st">"../../data/raw/netflix_titles.csv"</span>) <span class="co"># was in src/ica, so had to come up two directories</span></span>
+<span id="cb53-39"><a href="#cb53-39"></a><span class="in">```</span></span>
+<span id="cb53-40"><a href="#cb53-40"></a></span>
+<span id="cb53-41"><a href="#cb53-41"></a></span>
+<span id="cb53-42"><a href="#cb53-42"></a></span>
+<span id="cb53-45"><a href="#cb53-45"></a><span class="in">```{python}</span></span>
+<span id="cb53-46"><a href="#cb53-46"></a>df_netflix.head()</span>
+<span id="cb53-47"><a href="#cb53-47"></a><span class="in">```</span></span>
+<span id="cb53-48"><a href="#cb53-48"></a></span>
+<span id="cb53-51"><a href="#cb53-51"></a><span class="in">```{python}</span></span>
+<span id="cb53-52"><a href="#cb53-52"></a>df_netflix.shape</span>
+<span id="cb53-53"><a href="#cb53-53"></a><span class="in">```</span></span>
+<span id="cb53-54"><a href="#cb53-54"></a></span>
+<span id="cb53-57"><a href="#cb53-57"></a><span class="in">```{python}</span></span>
+<span id="cb53-58"><a href="#cb53-58"></a>df_netflix.info()</span>
+<span id="cb53-59"><a href="#cb53-59"></a><span class="in">```</span></span>
+<span id="cb53-60"><a href="#cb53-60"></a></span>
+<span id="cb53-63"><a href="#cb53-63"></a><span class="in">```{python}</span></span>
+<span id="cb53-64"><a href="#cb53-64"></a>df_netflix[df_netflix.show_id<span class="op">==</span><span class="st">'s5023'</span>] <span class="co"># seeing the title for a particular particular id not showing other foreign characters</span></span>
+<span id="cb53-65"><a href="#cb53-65"></a><span class="in">```</span></span>
+<span id="cb53-66"><a href="#cb53-66"></a></span>
+<span id="cb53-69"><a href="#cb53-69"></a><span class="in">```{python}</span></span>
+<span id="cb53-70"><a href="#cb53-70"></a><span class="co"># checking the maximum length of title -- to put as char in SQL</span></span>
+<span id="cb53-71"><a href="#cb53-71"></a><span class="bu">max</span>(df_netflix.title.<span class="bu">str</span>.<span class="bu">len</span>()) <span class="co"># 104</span></span>
+<span id="cb53-72"><a href="#cb53-72"></a><span class="in">```</span></span>
+<span id="cb53-73"><a href="#cb53-73"></a></span>
+<span id="cb53-76"><a href="#cb53-76"></a><span class="in">```{python}</span></span>
+<span id="cb53-77"><a href="#cb53-77"></a><span class="co"># seeing total number of missing values</span></span>
+<span id="cb53-78"><a href="#cb53-78"></a>df_netflix.isna().<span class="bu">sum</span>() <span class="co"># a lot of missing values in director, cast and country  </span></span>
+<span id="cb53-79"><a href="#cb53-79"></a><span class="in">```</span></span>
+<span id="cb53-82"><a href="#cb53-82"></a><span class="in">```{python}</span></span>
+<span id="cb53-83"><a href="#cb53-83"></a><span class="co"># similar checking for rating </span></span>
+<span id="cb53-84"><a href="#cb53-84"></a><span class="bu">max</span>(df_netflix.rating.<span class="bu">str</span>.<span class="bu">len</span>()) <span class="co"># 8</span></span>
+<span id="cb53-85"><a href="#cb53-85"></a><span class="co"># similarly checking for duration </span></span>
+<span id="cb53-86"><a href="#cb53-86"></a><span class="bu">max</span>(df_netflix.duration.<span class="bu">str</span>.<span class="bu">len</span>()) <span class="co"># 10</span></span>
+<span id="cb53-87"><a href="#cb53-87"></a><span class="in">```</span></span>
+<span id="cb53-88"><a href="#cb53-88"></a></span>
+<span id="cb53-91"><a href="#cb53-91"></a><span class="in">```{python}</span></span>
+<span id="cb53-92"><a href="#cb53-92"></a><span class="co"># lets access some columns to understand more our data and also about user preferencences </span></span>
+<span id="cb53-93"><a href="#cb53-93"></a>df_netflix[<span class="st">'type'</span>]</span>
+<span id="cb53-94"><a href="#cb53-94"></a><span class="in">```</span></span>
+<span id="cb53-97"><a href="#cb53-97"></a><span class="in">```{python}</span></span>
+<span id="cb53-98"><a href="#cb53-98"></a><span class="co"># I can only see Movie and TV Show in the type -- types of entertainment media on Netflix </span></span>
+<span id="cb53-99"><a href="#cb53-99"></a><span class="co"># Lets do a simple count using value counts method</span></span>
+<span id="cb53-100"><a href="#cb53-100"></a>df_netflix[<span class="st">'type'</span>].value_counts()</span>
+<span id="cb53-101"><a href="#cb53-101"></a><span class="in">```</span></span>
+<span id="cb53-102"><a href="#cb53-102"></a></span>
+<span id="cb53-105"><a href="#cb53-105"></a><span class="in">```{python}</span></span>
+<span id="cb53-106"><a href="#cb53-106"></a><span class="co"># Interesting info from value counts -- people are preferring Movie compared to TV Show</span></span>
+<span id="cb53-107"><a href="#cb53-107"></a><span class="co"># Lets graph it and then do some percentage analysis</span></span>
+<span id="cb53-108"><a href="#cb53-108"></a>sb.barplot(</span>
+<span id="cb53-109"><a href="#cb53-109"></a>    x<span class="op">=</span>df_netflix[<span class="st">'type'</span>].value_counts().index,</span>
+<span id="cb53-110"><a href="#cb53-110"></a>    y<span class="op">=</span>df_netflix[<span class="st">'type'</span>].value_counts().values</span>
+<span id="cb53-111"><a href="#cb53-111"></a>)</span>
+<span id="cb53-112"><a href="#cb53-112"></a>plt.show()</span>
+<span id="cb53-113"><a href="#cb53-113"></a><span class="in">```</span></span>
+<span id="cb53-116"><a href="#cb53-116"></a><span class="in">```{python}</span></span>
+<span id="cb53-117"><a href="#cb53-117"></a><span class="co"># Percentage analysis </span></span>
+<span id="cb53-118"><a href="#cb53-118"></a>Movie_pref <span class="op">=</span> <span class="dv">6131</span></span>
+<span id="cb53-119"><a href="#cb53-119"></a>TV_Show <span class="op">=</span> <span class="dv">2676</span></span>
+<span id="cb53-120"><a href="#cb53-120"></a>Total_Content <span class="op">=</span> Movie_pref <span class="op">+</span> TV_Show</span>
+<span id="cb53-121"><a href="#cb53-121"></a></span>
+<span id="cb53-122"><a href="#cb53-122"></a>MoviePercent <span class="op">=</span> Movie_pref <span class="op">*</span> <span class="dv">100</span><span class="op">/</span> Total_Content</span>
+<span id="cb53-123"><a href="#cb53-123"></a>TvShow_Percent <span class="op">=</span> TV_Show <span class="op">*</span> <span class="dv">100</span><span class="op">/</span> Total_Content</span>
+<span id="cb53-124"><a href="#cb53-124"></a></span>
+<span id="cb53-125"><a href="#cb53-125"></a><span class="bu">print</span>(MoviePercent) <span class="co"># 69.61507891449983 ~ 70%</span></span>
+<span id="cb53-126"><a href="#cb53-126"></a><span class="bu">print</span>(TvShow_Percent) <span class="co"># 30.38492108550017 ~ 30%</span></span>
+<span id="cb53-127"><a href="#cb53-127"></a><span class="in">```</span></span>
+<span id="cb53-130"><a href="#cb53-130"></a><span class="in">```{python}</span></span>
+<span id="cb53-131"><a href="#cb53-131"></a><span class="co"># Visualizing Entertainment preference based on percentage analysis </span></span>
+<span id="cb53-132"><a href="#cb53-132"></a>Entertainment_Type <span class="op">=</span> [MoviePercent, TvShow_Percent]</span>
+<span id="cb53-133"><a href="#cb53-133"></a>Labels <span class="op">=</span> [<span class="st">"% who prefer Movies"</span>, <span class="st">"% who prefer TV Shows"</span>]</span>
+<span id="cb53-134"><a href="#cb53-134"></a></span>
+<span id="cb53-135"><a href="#cb53-135"></a>sb.barplot(</span>
+<span id="cb53-136"><a href="#cb53-136"></a>    x<span class="op">=</span>Labels,</span>
+<span id="cb53-137"><a href="#cb53-137"></a>    y<span class="op">=</span>Entertainment_Type,</span>
+<span id="cb53-138"><a href="#cb53-138"></a>    palette<span class="op">=</span>sb.color_palette(<span class="st">"Blues"</span>, as_cmap<span class="op">=</span><span class="va">True</span>)([v<span class="op">/</span><span class="bu">max</span>(Entertainment_Type) <span class="cf">for</span> v <span class="kw">in</span> Entertainment_Type])</span>
+<span id="cb53-139"><a href="#cb53-139"></a>)</span>
+<span id="cb53-140"><a href="#cb53-140"></a></span>
+<span id="cb53-141"><a href="#cb53-141"></a>plt.title(<span class="st">"Entertainment Type Preferred"</span>)</span>
+<span id="cb53-142"><a href="#cb53-142"></a>plt.ylabel(<span class="st">"Percentage"</span>)</span>
+<span id="cb53-143"><a href="#cb53-143"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb53-144"><a href="#cb53-144"></a>plt.show()</span>
+<span id="cb53-145"><a href="#cb53-145"></a><span class="in">```</span></span>
+<span id="cb53-148"><a href="#cb53-148"></a><span class="in">```{python}</span></span>
+<span id="cb53-149"><a href="#cb53-149"></a><span class="co"># Interesting this is showing how many films each director has directed </span></span>
+<span id="cb53-150"><a href="#cb53-150"></a>df_netflix[<span class="st">'director'</span>].value_counts() <span class="co"># altogether 4528 directors</span></span>
+<span id="cb53-151"><a href="#cb53-151"></a></span>
+<span id="cb53-152"><a href="#cb53-152"></a><span class="co"># lets do this : 1. lets see how many directors who have director 5 or more movies  </span></span>
+<span id="cb53-153"><a href="#cb53-153"></a>Top_directors <span class="op">=</span> df_netflix[<span class="st">'director'</span>].value_counts()<span class="op">&gt;=</span><span class="dv">5</span></span>
+<span id="cb53-154"><a href="#cb53-154"></a><span class="in">```</span></span>
+<span id="cb53-157"><a href="#cb53-157"></a><span class="in">```{python}</span></span>
+<span id="cb53-158"><a href="#cb53-158"></a>Top_directors.value_counts()</span>
+<span id="cb53-159"><a href="#cb53-159"></a><span class="co"># Wow so basically Only 92 out of 4528  Directors who have directed in 5 or more movies -- most of the directors are amateur </span></span>
+<span id="cb53-160"><a href="#cb53-160"></a></span>
+<span id="cb53-161"><a href="#cb53-161"></a>four_or_less_m_directors <span class="op">=</span> <span class="dv">4436</span></span>
+<span id="cb53-162"><a href="#cb53-162"></a>five_or_more_m_directors <span class="op">=</span> <span class="dv">92</span></span>
+<span id="cb53-163"><a href="#cb53-163"></a>Total_directors <span class="op">=</span> <span class="dv">4528</span></span>
+<span id="cb53-164"><a href="#cb53-164"></a></span>
+<span id="cb53-165"><a href="#cb53-165"></a>four_or_less_percent <span class="op">=</span> <span class="dv">4436</span><span class="op">*</span><span class="dv">100</span><span class="op">/</span><span class="dv">4528</span></span>
+<span id="cb53-166"><a href="#cb53-166"></a>five_or_more_percent <span class="op">=</span> <span class="dv">92</span><span class="op">*</span><span class="dv">100</span><span class="op">/</span><span class="dv">4528</span></span>
+<span id="cb53-167"><a href="#cb53-167"></a><span class="in">```</span></span>
+<span id="cb53-170"><a href="#cb53-170"></a><span class="in">```{python}</span></span>
+<span id="cb53-171"><a href="#cb53-171"></a><span class="co"># % of Directors who directed 4 or less movies </span></span>
+<span id="cb53-172"><a href="#cb53-172"></a>four_or_less_percent</span>
+<span id="cb53-173"><a href="#cb53-173"></a><span class="co"># % of Directors who directed 5 or more movies </span></span>
+<span id="cb53-174"><a href="#cb53-174"></a>five_or_more_percent</span>
+<span id="cb53-175"><a href="#cb53-175"></a><span class="in">```</span></span>
+<span id="cb53-178"><a href="#cb53-178"></a><span class="in">```{python}</span></span>
+<span id="cb53-179"><a href="#cb53-179"></a><span class="co"># Figuring out top countries </span></span>
+<span id="cb53-180"><a href="#cb53-180"></a>df_netflix[<span class="st">'country'</span>].value_counts().head(<span class="dv">5</span>) <span class="co"># Wow US, India, UK, Japan and South Korea top five countries producing</span></span>
+<span id="cb53-181"><a href="#cb53-181"></a><span class="co"># netflix shows </span></span>
+<span id="cb53-182"><a href="#cb53-182"></a><span class="in">```</span></span>
+<span id="cb53-185"><a href="#cb53-185"></a><span class="in">```{python}</span></span>
+<span id="cb53-186"><a href="#cb53-186"></a><span class="co"># top five countries producers visulaization</span></span>
+<span id="cb53-187"><a href="#cb53-187"></a></span>
+<span id="cb53-188"><a href="#cb53-188"></a>plt.figure()  <span class="co"># starting fresh figure not to overlap</span></span>
+<span id="cb53-189"><a href="#cb53-189"></a>sb.barplot(x<span class="op">=</span>df_netflix[<span class="st">'country'</span>].value_counts().head(<span class="dv">5</span>).index,</span>
+<span id="cb53-190"><a href="#cb53-190"></a>           y<span class="op">=</span>df_netflix[<span class="st">'country'</span>].value_counts().head(<span class="dv">5</span>).values)</span>
+<span id="cb53-191"><a href="#cb53-191"></a>plt.title(<span class="st">"Top 5 Countries"</span>)</span>
+<span id="cb53-192"><a href="#cb53-192"></a>plt.show()</span>
+<span id="cb53-193"><a href="#cb53-193"></a></span>
+<span id="cb53-194"><a href="#cb53-194"></a><span class="in">```</span></span>
+<span id="cb53-197"><a href="#cb53-197"></a><span class="in">```{python}</span></span>
+<span id="cb53-198"><a href="#cb53-198"></a><span class="co"># lets make a filter of movies title and its description </span></span>
+<span id="cb53-199"><a href="#cb53-199"></a>df_netflix[[<span class="st">'title'</span>, <span class="st">'description'</span>]]</span>
+<span id="cb53-200"><a href="#cb53-200"></a><span class="in">```</span></span>
+<span id="cb53-203"><a href="#cb53-203"></a><span class="in">```{python}</span></span>
+<span id="cb53-204"><a href="#cb53-204"></a><span class="co"># lets try to basically make a dictionary where key is title name and value is its description</span></span>
+<span id="cb53-205"><a href="#cb53-205"></a>title_desc_dict <span class="op">=</span> {<span class="st">"df_netflix['title']"</span> : <span class="st">"df_netflix['description']"</span>}</span>
+<span id="cb53-206"><a href="#cb53-206"></a><span class="bu">print</span>(title_desc_dict[<span class="st">'df_netflix[</span><span class="ch">\'</span><span class="st">title</span><span class="ch">\'</span><span class="st">]'</span>])</span>
+<span id="cb53-207"><a href="#cb53-207"></a><span class="in">```</span></span>
+<span id="cb53-208"><a href="#cb53-208"></a></span>
+<span id="cb53-209"><a href="#cb53-209"></a><span class="fu">#### Data Cleaning, transformation and Analysis done in PostgreSQL ( Just displaying code here as text, for more info about database connection visit my github repo Netflix ELT E2E)</span></span>
+<span id="cb53-210"><a href="#cb53-210"></a></span>
+<span id="cb53-211"><a href="#cb53-211"></a>eval: false</span>
+<span id="cb53-212"><a href="#cb53-212"></a></span>
+<span id="cb53-213"><a href="#cb53-213"></a><span class="fu"># ----------------- Data Cleaning --------------------------------------- </span></span>
+<span id="cb53-214"><a href="#cb53-214"></a></span>
+<span id="cb53-215"><a href="#cb53-215"></a>CREATE TABLE IF NOT EXISTS Netflix_RawData </span>
+<span id="cb53-216"><a href="#cb53-216"></a>(   show_id     varchar(10) primary key,</span>
+<span id="cb53-217"><a href="#cb53-217"></a>    "type"      text,</span>
+<span id="cb53-218"><a href="#cb53-218"></a>    title       varchar(150),</span>
+<span id="cb53-219"><a href="#cb53-219"></a>    director    text, </span>
+<span id="cb53-220"><a href="#cb53-220"></a>    "cast"      text,</span>
+<span id="cb53-221"><a href="#cb53-221"></a>    country     text,</span>
+<span id="cb53-222"><a href="#cb53-222"></a>    date_added  date,</span>
+<span id="cb53-223"><a href="#cb53-223"></a>    release_year int, </span>
+<span id="cb53-224"><a href="#cb53-224"></a>    rating      varchar(15),</span>
+<span id="cb53-225"><a href="#cb53-225"></a>    duration    varchar(20),</span>
+<span id="cb53-226"><a href="#cb53-226"></a>    listed_in   text,</span>
+<span id="cb53-227"><a href="#cb53-227"></a>    description text</span>
+<span id="cb53-228"><a href="#cb53-228"></a>)</span>
+<span id="cb53-229"><a href="#cb53-229"></a></span>
+<span id="cb53-230"><a href="#cb53-230"></a>select * from Netflix_RawData;</span>
+<span id="cb53-231"><a href="#cb53-231"></a>select * from Netflix_RawData order by title</span>
+<span id="cb53-232"><a href="#cb53-232"></a></span>
+<span id="cb53-233"><a href="#cb53-233"></a>-- checking if other non-english characters are showing up or not</span>
+<span id="cb53-234"><a href="#cb53-234"></a>select * from Netflix_RawData</span>
+<span id="cb53-235"><a href="#cb53-235"></a>where show_id = 's5023'  -- Amazing the korean characters are showing! </span>
+<span id="cb53-236"><a href="#cb53-236"></a></span>
+<span id="cb53-237"><a href="#cb53-237"></a>-- checking for duplicates : &gt;1</span>
+<span id="cb53-238"><a href="#cb53-238"></a>select show_id, COUNT(*)</span>
+<span id="cb53-239"><a href="#cb53-239"></a>from Netflix_RawData</span>
+<span id="cb53-240"><a href="#cb53-240"></a>group by show_id</span>
+<span id="cb53-241"><a href="#cb53-241"></a>having COUNT(*)&gt;1 --  Show's no duplicates </span>
+<span id="cb53-242"><a href="#cb53-242"></a></span>
+<span id="cb53-243"><a href="#cb53-243"></a>-- Just checking : Removing the duplicates using ctid to uniquely identify each row </span>
+<span id="cb53-244"><a href="#cb53-244"></a>Delete from Netflix_RawData</span>
+<span id="cb53-245"><a href="#cb53-245"></a>where ctid not in (select min (ctid)</span>
+<span id="cb53-246"><a href="#cb53-246"></a>from Netflix_RawData</span>
+<span id="cb53-247"><a href="#cb53-247"></a>group by show_id</span>
+<span id="cb53-248"><a href="#cb53-248"></a>) -- show's 0 deleted which means no duplicates and I can safely make my show_id char</span>
+<span id="cb53-249"><a href="#cb53-249"></a></span>
+<span id="cb53-250"><a href="#cb53-250"></a>-- dropped the table and then created again to add the primary key </span>
+<span id="cb53-251"><a href="#cb53-251"></a></span>
+<span id="cb53-252"><a href="#cb53-252"></a>-- checking for duplicates in the title</span>
+<span id="cb53-253"><a href="#cb53-253"></a>select * from Netflix_RawData</span>
+<span id="cb53-254"><a href="#cb53-254"></a>where title in (</span>
+<span id="cb53-255"><a href="#cb53-255"></a>select title</span>
+<span id="cb53-256"><a href="#cb53-256"></a>from Netflix_RawData</span>
+<span id="cb53-257"><a href="#cb53-257"></a>group by title</span>
+<span id="cb53-258"><a href="#cb53-258"></a>having COUNT(*)&gt;1 </span>
+<span id="cb53-259"><a href="#cb53-259"></a>) -- shows no duplicates </span>
+<span id="cb53-260"><a href="#cb53-260"></a></span>
+<span id="cb53-261"><a href="#cb53-261"></a>-- Since we have many values for single column it hinders our data analyzing abilities such as in listed-in we</span>
+<span id="cb53-262"><a href="#cb53-262"></a>-- we have international TV Show, TV dramas, TV Thrillers and this is the case for many columns we can split this</span>
+<span id="cb53-263"><a href="#cb53-263"></a></span>
+<span id="cb53-264"><a href="#cb53-264"></a>select show_id, trim(director_part) as director</span>
+<span id="cb53-265"><a href="#cb53-265"></a>from Netflix_RawData,</span>
+<span id="cb53-266"><a href="#cb53-266"></a>lateral unnest(string_to_array(director, ',')) AS director_part; -- splitting on the comma</span>
+<span id="cb53-267"><a href="#cb53-267"></a></span>
+<span id="cb53-268"><a href="#cb53-268"></a>-- inserting the new director table in Netflix_RawData</span>
+<span id="cb53-269"><a href="#cb53-269"></a>select show_id, trim (director_part) as director</span>
+<span id="cb53-270"><a href="#cb53-270"></a>into netflix_directors -- creating a new table named netflix_directors and inserting data splitted from directors there </span>
+<span id="cb53-271"><a href="#cb53-271"></a>from  Netflix_RawData,</span>
+<span id="cb53-272"><a href="#cb53-272"></a>lateral unnest(string_to_array(director, ',')) AS director_part; </span>
+<span id="cb53-273"><a href="#cb53-273"></a></span>
+<span id="cb53-274"><a href="#cb53-274"></a>select * from netflix_directors -- proper table created </span>
+<span id="cb53-275"><a href="#cb53-275"></a></span>
+<span id="cb53-276"><a href="#cb53-276"></a>-- lets basically seperate cast, listed_in and country as well and create new table and directly insert </span>
+<span id="cb53-277"><a href="#cb53-277"></a>select show_id,trim (cast_part) as single_cast_member</span>
+<span id="cb53-278"><a href="#cb53-278"></a>intp netflix_cast</span>
+<span id="cb53-279"><a href="#cb53-279"></a>from Netflix_RawData,</span>
+<span id="cb53-280"><a href="#cb53-280"></a>lateral unnest(string_to_array("cast", ',')) AS cast_part;</span>
+<span id="cb53-281"><a href="#cb53-281"></a></span>
+<span id="cb53-282"><a href="#cb53-282"></a>select * from netflix_cast</span>
 <span id="cb53-283"><a href="#cb53-283"></a></span>
-<span id="cb53-284"><a href="#cb53-284"></a>select * from netflix_genre</span>
-<span id="cb53-285"><a href="#cb53-285"></a></span>
-<span id="cb53-286"><a href="#cb53-286"></a>Select show_id,Trim(country_part) as  single_country</span>
-<span id="cb53-287"><a href="#cb53-287"></a>Into netflix_country</span>
-<span id="cb53-288"><a href="#cb53-288"></a>from Netflix_RawData,</span>
-<span id="cb53-289"><a href="#cb53-289"></a>lateral unnest(string_to_array(country, ',')) as country_part</span>
+<span id="cb53-284"><a href="#cb53-284"></a>select show_id,Trim(listed_in_part) as genre</span>
+<span id="cb53-285"><a href="#cb53-285"></a>into  netflix_genre</span>
+<span id="cb53-286"><a href="#cb53-286"></a>from Netflix_RawData,</span>
+<span id="cb53-287"><a href="#cb53-287"></a>lateral unnest(string_to_array(listed_in, ',')) as listed_in_part</span>
+<span id="cb53-288"><a href="#cb53-288"></a></span>
+<span id="cb53-289"><a href="#cb53-289"></a>select * from netflix_genre</span>
 <span id="cb53-290"><a href="#cb53-290"></a></span>
-<span id="cb53-291"><a href="#cb53-291"></a>select * from netflix_country</span>
-<span id="cb53-292"><a href="#cb53-292"></a></span>
-<span id="cb53-293"><a href="#cb53-293"></a>--- After running the isna() method in Jupyter we have lots of null values in director cast and country</span>
-<span id="cb53-294"><a href="#cb53-294"></a>-- For us populating country is very important </span>
+<span id="cb53-291"><a href="#cb53-291"></a>Select show_id,Trim(country_part) as  single_country</span>
+<span id="cb53-292"><a href="#cb53-292"></a>Into netflix_country</span>
+<span id="cb53-293"><a href="#cb53-293"></a>from Netflix_RawData,</span>
+<span id="cb53-294"><a href="#cb53-294"></a>lateral unnest(string_to_array(country, ',')) as country_part</span>
 <span id="cb53-295"><a href="#cb53-295"></a></span>
-<span id="cb53-296"><a href="#cb53-296"></a>select show_id, country</span>
-<span id="cb53-297"><a href="#cb53-297"></a>from Netflix_RawData</span>
-<span id="cb53-298"><a href="#cb53-298"></a>where country is null -- 831 rows are null </span>
-<span id="cb53-299"><a href="#cb53-299"></a></span>
-<span id="cb53-300"><a href="#cb53-300"></a>select show_id, director</span>
-<span id="cb53-301"><a href="#cb53-301"></a>from Netflix_RawData </span>
-<span id="cb53-302"><a href="#cb53-302"></a>where director is null -- 2634 rows are null </span>
-<span id="cb53-303"><a href="#cb53-303"></a></span>
-<span id="cb53-304"><a href="#cb53-304"></a>select * from netflix_country where show_id = 's1001' -- if its null, its basically not showing</span>
-<span id="cb53-305"><a href="#cb53-305"></a></span>
-<span id="cb53-306"><a href="#cb53-306"></a>-- We need to somehow populate these null values : lets check for a specific director</span>
-<span id="cb53-307"><a href="#cb53-307"></a></span>
-<span id="cb53-308"><a href="#cb53-308"></a>select * from netflix_RawData where director = 'Ahishor Solomon'  --- See one country is Null and other India</span>
-<span id="cb53-309"><a href="#cb53-309"></a>-- So most probably based on probablity it might be India as he is working with Indian directors </span>
+<span id="cb53-296"><a href="#cb53-296"></a>select * from netflix_country</span>
+<span id="cb53-297"><a href="#cb53-297"></a></span>
+<span id="cb53-298"><a href="#cb53-298"></a>--- After running the isna() method in Jupyter we have lots of null values in director cast and country</span>
+<span id="cb53-299"><a href="#cb53-299"></a>-- For us populating country is very important </span>
+<span id="cb53-300"><a href="#cb53-300"></a></span>
+<span id="cb53-301"><a href="#cb53-301"></a>select show_id, country</span>
+<span id="cb53-302"><a href="#cb53-302"></a>from Netflix_RawData</span>
+<span id="cb53-303"><a href="#cb53-303"></a>where country is null -- 831 rows are null </span>
+<span id="cb53-304"><a href="#cb53-304"></a></span>
+<span id="cb53-305"><a href="#cb53-305"></a>select show_id, director</span>
+<span id="cb53-306"><a href="#cb53-306"></a>from Netflix_RawData </span>
+<span id="cb53-307"><a href="#cb53-307"></a>where director is null -- 2634 rows are null </span>
+<span id="cb53-308"><a href="#cb53-308"></a></span>
+<span id="cb53-309"><a href="#cb53-309"></a>select * from netflix_country where show_id = 's1001' -- if its null, its basically not showing</span>
 <span id="cb53-310"><a href="#cb53-310"></a></span>
-<span id="cb53-311"><a href="#cb53-311"></a>-- lets get a combination of director, country to see how many other countries has  each director directed  </span>
+<span id="cb53-311"><a href="#cb53-311"></a>-- We need to somehow populate these null values : lets check for a specific director</span>
 <span id="cb53-312"><a href="#cb53-312"></a></span>
-<span id="cb53-313"><a href="#cb53-313"></a>select director, single_country </span>
-<span id="cb53-314"><a href="#cb53-314"></a>from netflix_country nc </span>
-<span id="cb53-315"><a href="#cb53-315"></a>inner join netflix_directors nd on nc.show_id = nd.show_id -- telling sql to look for rows which have same id in both nc and nd </span>
-<span id="cb53-316"><a href="#cb53-316"></a>group by director, single_country</span>
-<span id="cb53-317"><a href="#cb53-317"></a>-- shows how one director can direct in different countries as well example Aaron Sorkin, Aaron, woodley etc</span>
-<span id="cb53-318"><a href="#cb53-318"></a>-- and we will basically assumme that for this dierctor if there's any country that's null that probably one</span>
-<span id="cb53-319"><a href="#cb53-319"></a>-- of the country he has already directed in can be give, based on probality </span>
-<span id="cb53-320"><a href="#cb53-320"></a></span>
-<span id="cb53-321"><a href="#cb53-321"></a>--- Pouplating the null values of country based on these probablities and map to director in our raw data</span>
-<span id="cb53-322"><a href="#cb53-322"></a>insert into netflix_country -- inserting these values in netflix_country table </span>
-<span id="cb53-323"><a href="#cb53-323"></a>select show_id, m.single_country</span>
-<span id="cb53-324"><a href="#cb53-324"></a>from Netflix_RawData nr</span>
-<span id="cb53-325"><a href="#cb53-325"></a>inner join (select director, single_country </span>
-<span id="cb53-326"><a href="#cb53-326"></a>from netflix_country nc </span>
-<span id="cb53-327"><a href="#cb53-327"></a>inner join netflix_directors nd on nc.show_id = nd.show_id  </span>
-<span id="cb53-328"><a href="#cb53-328"></a>group by director, single_country</span>
-<span id="cb53-329"><a href="#cb53-329"></a>) m on nr.director = m.director</span>
-<span id="cb53-330"><a href="#cb53-330"></a>where nr.country is null</span>
-<span id="cb53-331"><a href="#cb53-331"></a></span>
-<span id="cb53-332"><a href="#cb53-332"></a>select * from netflix_country -- awesome populated null values </span>
-<span id="cb53-333"><a href="#cb53-333"></a></span>
-<span id="cb53-334"><a href="#cb53-334"></a>--------------- Populating duration null values--------------</span>
-<span id="cb53-335"><a href="#cb53-335"></a></span>
-<span id="cb53-336"><a href="#cb53-336"></a>select * from Netflix_Rawdata </span>
-<span id="cb53-337"><a href="#cb53-337"></a>where duration is null  -- see some glitch with data where duration is null and its values are in rating, so lets populate duration with rating wherever null</span>
+<span id="cb53-313"><a href="#cb53-313"></a>select * from netflix_RawData where director = 'Ahishor Solomon'  --- See one country is Null and other India</span>
+<span id="cb53-314"><a href="#cb53-314"></a>-- So most probably based on probablity it might be India as he is working with Indian directors </span>
+<span id="cb53-315"><a href="#cb53-315"></a></span>
+<span id="cb53-316"><a href="#cb53-316"></a>-- lets get a combination of director, country to see how many other countries has  each director directed  </span>
+<span id="cb53-317"><a href="#cb53-317"></a></span>
+<span id="cb53-318"><a href="#cb53-318"></a>select director, single_country </span>
+<span id="cb53-319"><a href="#cb53-319"></a>from netflix_country nc </span>
+<span id="cb53-320"><a href="#cb53-320"></a>inner join netflix_directors nd on nc.show_id = nd.show_id -- telling sql to look for rows which have same id in both nc and nd </span>
+<span id="cb53-321"><a href="#cb53-321"></a>group by director, single_country</span>
+<span id="cb53-322"><a href="#cb53-322"></a>-- shows how one director can direct in different countries as well example Aaron Sorkin, Aaron, woodley etc</span>
+<span id="cb53-323"><a href="#cb53-323"></a>-- and we will basically assumme that for this dierctor if there's any country that's null that probably one</span>
+<span id="cb53-324"><a href="#cb53-324"></a>-- of the country he has already directed in can be give, based on probality </span>
+<span id="cb53-325"><a href="#cb53-325"></a></span>
+<span id="cb53-326"><a href="#cb53-326"></a>--- Pouplating the null values of country based on these probablities and map to director in our raw data</span>
+<span id="cb53-327"><a href="#cb53-327"></a>insert into netflix_country -- inserting these values in netflix_country table </span>
+<span id="cb53-328"><a href="#cb53-328"></a>select show_id, m.single_country</span>
+<span id="cb53-329"><a href="#cb53-329"></a>from Netflix_RawData nr</span>
+<span id="cb53-330"><a href="#cb53-330"></a>inner join (select director, single_country </span>
+<span id="cb53-331"><a href="#cb53-331"></a>from netflix_country nc </span>
+<span id="cb53-332"><a href="#cb53-332"></a>inner join netflix_directors nd on nc.show_id = nd.show_id  </span>
+<span id="cb53-333"><a href="#cb53-333"></a>group by director, single_country</span>
+<span id="cb53-334"><a href="#cb53-334"></a>) m on nr.director = m.director</span>
+<span id="cb53-335"><a href="#cb53-335"></a>where nr.country is null</span>
+<span id="cb53-336"><a href="#cb53-336"></a></span>
+<span id="cb53-337"><a href="#cb53-337"></a>select * from netflix_country -- awesome populated null values </span>
 <span id="cb53-338"><a href="#cb53-338"></a></span>
-<span id="cb53-339"><a href="#cb53-339"></a></span>
-<span id="cb53-340"><a href="#cb53-340"></a>select *,</span>
-<span id="cb53-341"><a href="#cb53-341"></a>case </span>
-<span id="cb53-342"><a href="#cb53-342"></a>when duration is null then rating else  duration  -- if else of sql started with the case </span>
-<span id="cb53-343"><a href="#cb53-343"></a>end as  duration_or_rating</span>
-<span id="cb53-344"><a href="#cb53-344"></a>from Netflix_RawData; -- populated </span>
-<span id="cb53-345"><a href="#cb53-345"></a></span>
-<span id="cb53-346"><a href="#cb53-346"></a>select show_id, duration</span>
-<span id="cb53-347"><a href="#cb53-347"></a>from Netflix_Rawdata -- confirmed population replacing null values </span>
-<span id="cb53-348"><a href="#cb53-348"></a></span>
-<span id="cb53-349"><a href="#cb53-349"></a>--- As per our Pandas EDA, date added was also null so lets see what we can do about it</span>
-<span id="cb53-350"><a href="#cb53-350"></a>select show_id, date_added</span>
-<span id="cb53-351"><a href="#cb53-351"></a>from Netflix_RawData</span>
-<span id="cb53-352"><a href="#cb53-352"></a>where date_added is null -- only around 10 rows are null, so we can leave it instead of basically adding default values</span>
+<span id="cb53-339"><a href="#cb53-339"></a>--------------- Populating duration null values--------------</span>
+<span id="cb53-340"><a href="#cb53-340"></a></span>
+<span id="cb53-341"><a href="#cb53-341"></a>select * from Netflix_Rawdata </span>
+<span id="cb53-342"><a href="#cb53-342"></a>where duration is null  -- see some glitch with data where duration is null and its values are in rating, so lets populate duration with rating wherever null</span>
+<span id="cb53-343"><a href="#cb53-343"></a></span>
+<span id="cb53-344"><a href="#cb53-344"></a></span>
+<span id="cb53-345"><a href="#cb53-345"></a>select *,</span>
+<span id="cb53-346"><a href="#cb53-346"></a>case </span>
+<span id="cb53-347"><a href="#cb53-347"></a>when duration is null then rating else  duration  -- if else of sql started with the case </span>
+<span id="cb53-348"><a href="#cb53-348"></a>end as  duration_or_rating</span>
+<span id="cb53-349"><a href="#cb53-349"></a>from Netflix_RawData; -- populated </span>
+<span id="cb53-350"><a href="#cb53-350"></a></span>
+<span id="cb53-351"><a href="#cb53-351"></a>select show_id, duration</span>
+<span id="cb53-352"><a href="#cb53-352"></a>from Netflix_Rawdata -- confirmed population replacing null values </span>
 <span id="cb53-353"><a href="#cb53-353"></a></span>
-<span id="cb53-354"><a href="#cb53-354"></a></span>
-<span id="cb53-355"><a href="#cb53-355"></a>-- Creating our Final clean table --</span>
-<span id="cb53-356"><a href="#cb53-356"></a></span>
-<span id="cb53-357"><a href="#cb53-357"></a>with cte as (</span>
-<span id="cb53-358"><a href="#cb53-358"></a>select *,</span>
-<span id="cb53-359"><a href="#cb53-359"></a>row_number() over (partition by title, type order by show_id) as rn</span>
-<span id="cb53-360"><a href="#cb53-360"></a>from Netflix_RawData</span>
-<span id="cb53-361"><a href="#cb53-361"></a>)</span>
-<span id="cb53-362"><a href="#cb53-362"></a>select show_id,"type", title, cast (date_added as date) as date_added, release_year, rating, duration,</span>
-<span id="cb53-363"><a href="#cb53-363"></a>description </span>
-<span id="cb53-364"><a href="#cb53-364"></a>into Netflix_cleaned</span>
-<span id="cb53-365"><a href="#cb53-365"></a>from cte</span>
-<span id="cb53-366"><a href="#cb53-366"></a></span>
-<span id="cb53-367"><a href="#cb53-367"></a>select * from Netflix_cleaned --- whernever we need other columns such as country, cast, director we can basically join our table</span>
-<span id="cb53-368"><a href="#cb53-368"></a></span>
-<span id="cb53-369"><a href="#cb53-369"></a>----------------------------DATA Analysis ----------------------------------------------------------</span>
-<span id="cb53-370"><a href="#cb53-370"></a></span>
-<span id="cb53-371"><a href="#cb53-371"></a>-- Answeing important analysis question and solving it with SQL query :</span>
-<span id="cb53-372"><a href="#cb53-372"></a>-- For each directors how many movies and shows they created in seperate columns </span>
+<span id="cb53-354"><a href="#cb53-354"></a>--- As per our Pandas EDA, date added was also null so lets see what we can do about it</span>
+<span id="cb53-355"><a href="#cb53-355"></a>select show_id, date_added</span>
+<span id="cb53-356"><a href="#cb53-356"></a>from Netflix_RawData</span>
+<span id="cb53-357"><a href="#cb53-357"></a>where date_added is null -- only around 10 rows are null, so we can leave it instead of basically adding default values</span>
+<span id="cb53-358"><a href="#cb53-358"></a></span>
+<span id="cb53-359"><a href="#cb53-359"></a></span>
+<span id="cb53-360"><a href="#cb53-360"></a>-- Creating our Final clean table --</span>
+<span id="cb53-361"><a href="#cb53-361"></a></span>
+<span id="cb53-362"><a href="#cb53-362"></a>with cte as (</span>
+<span id="cb53-363"><a href="#cb53-363"></a>select *,</span>
+<span id="cb53-364"><a href="#cb53-364"></a>row_number() over (partition by title, type order by show_id) as rn</span>
+<span id="cb53-365"><a href="#cb53-365"></a>from Netflix_RawData</span>
+<span id="cb53-366"><a href="#cb53-366"></a>)</span>
+<span id="cb53-367"><a href="#cb53-367"></a>select show_id,"type", title, cast (date_added as date) as date_added, release_year, rating, duration,</span>
+<span id="cb53-368"><a href="#cb53-368"></a>description </span>
+<span id="cb53-369"><a href="#cb53-369"></a>into Netflix_cleaned</span>
+<span id="cb53-370"><a href="#cb53-370"></a>from cte</span>
+<span id="cb53-371"><a href="#cb53-371"></a></span>
+<span id="cb53-372"><a href="#cb53-372"></a>select * from Netflix_cleaned --- whernever we need other columns such as country, cast, director we can basically join our table</span>
 <span id="cb53-373"><a href="#cb53-373"></a></span>
-<span id="cb53-374"><a href="#cb53-374"></a>select nd.director,</span>
-<span id="cb53-375"><a href="#cb53-375"></a>count (distinct case when n.type = 'Movie' then n.show_id end) as no_of_movies,</span>
-<span id="cb53-376"><a href="#cb53-376"></a>count (distinct case when n.type = 'TV Show' then n.show_id end) as no_of_tvshow</span>
-<span id="cb53-377"><a href="#cb53-377"></a>from Netflix_cleaned n</span>
-<span id="cb53-378"><a href="#cb53-378"></a>inner join netflix_directors nd on n.show_id = nd.show_id</span>
-<span id="cb53-379"><a href="#cb53-379"></a>group by nd.director</span>
-<span id="cb53-380"><a href="#cb53-380"></a>having count ( distinct n.type)&gt;1 </span>
-<span id="cb53-381"><a href="#cb53-381"></a></span>
-<span id="cb53-382"><a href="#cb53-382"></a><span class="ss">- </span>done got a table with director names and no.of movies and tv shows they have directed seperately</span>
-<span id="cb53-383"><a href="#cb53-383"></a></span>
-<span id="cb53-384"><a href="#cb53-384"></a>-- Which country has produced highest number of comedy movies ?</span>
-<span id="cb53-385"><a href="#cb53-385"></a></span>
-<span id="cb53-386"><a href="#cb53-386"></a>select nc.single_country, count(distinct ng.show_id) as no_of_movies</span>
-<span id="cb53-387"><a href="#cb53-387"></a>from netflix_genre ng </span>
-<span id="cb53-388"><a href="#cb53-388"></a>inner join netflix_country nc on ng.show_id = nc.show_id </span>
-<span id="cb53-389"><a href="#cb53-389"></a>inner join netflix_cleaned n on ng.show_id = n.show_id</span>
-<span id="cb53-390"><a href="#cb53-390"></a>where ng.genre = 'Comedies' and n.type = 'Movie'</span>
-<span id="cb53-391"><a href="#cb53-391"></a>group by nc.single_country</span>
-<span id="cb53-392"><a href="#cb53-392"></a>order by no_of_movies desc-- Got US as having the highest no.of comedy movies on top of the table</span>
-<span id="cb53-393"><a href="#cb53-393"></a>limit 1 -- postgre_sql syntax for getting the top 1</span>
-<span id="cb53-394"><a href="#cb53-394"></a></span>
-<span id="cb53-395"><a href="#cb53-395"></a></span>
-<span id="cb53-396"><a href="#cb53-396"></a>-- For each year, which director has maximum number of movies released </span>
-<span id="cb53-397"><a href="#cb53-397"></a></span>
-<span id="cb53-398"><a href="#cb53-398"></a></span>
-<span id="cb53-399"><a href="#cb53-399"></a>with cte as (</span>
-<span id="cb53-400"><a href="#cb53-400"></a>select nd.director, extract(year from n.date_added) as date_year, count( n.show_id) as no_of_movies -- postgre sql syntax extract</span>
-<span id="cb53-401"><a href="#cb53-401"></a>from Netflix_Cleaned n </span>
-<span id="cb53-402"><a href="#cb53-402"></a>inner join netflix_directors nd on n.show_id = nd.show_id</span>
-<span id="cb53-403"><a href="#cb53-403"></a>where type = 'Movie'</span>
-<span id="cb53-404"><a href="#cb53-404"></a>group by nd.director, extract(year from n.date_added) </span>
-<span id="cb53-405"><a href="#cb53-405"></a>), </span>
-<span id="cb53-406"><a href="#cb53-406"></a>cte2 as (</span>
-<span id="cb53-407"><a href="#cb53-407"></a>select *, </span>
-<span id="cb53-408"><a href="#cb53-408"></a>row_number () over (partition by date_year order by no_of_movies desc, director ) as rn </span>
-<span id="cb53-409"><a href="#cb53-409"></a>from cte </span>
-<span id="cb53-410"><a href="#cb53-410"></a>)</span>
-<span id="cb53-411"><a href="#cb53-411"></a></span>
-<span id="cb53-412"><a href="#cb53-412"></a>select * from cte2 where rn=1 -- we got it from 2008 to 2021 </span>
-<span id="cb53-413"><a href="#cb53-413"></a></span>
-<span id="cb53-414"><a href="#cb53-414"></a>-- What's the avg duration of movies for each genre </span>
-<span id="cb53-415"><a href="#cb53-415"></a></span>
-<span id="cb53-416"><a href="#cb53-416"></a>select ng.genre, floor(avg(cast(replace(n.duration, ' min', '') as int))) as avg_duration</span>
-<span id="cb53-417"><a href="#cb53-417"></a>from netflix_cleaned n</span>
-<span id="cb53-418"><a href="#cb53-418"></a>inner join netflix_genre ng on n.show_id = ng.show_id</span>
-<span id="cb53-419"><a href="#cb53-419"></a>where n.type = 'Movie' </span>
-<span id="cb53-420"><a href="#cb53-420"></a>and n.duration ~ '^<span class="co">[</span><span class="ot">0-9</span><span class="co">]</span>+ min$'</span>
-<span id="cb53-421"><a href="#cb53-421"></a>group by ng.genre; -- yes we got it </span>
-<span id="cb53-422"><a href="#cb53-422"></a></span>
-<span id="cb53-423"><a href="#cb53-423"></a>-- Find the list of directors who have created horror and comedy movies both and display director names along with no. of horror and comedy movies </span>
-<span id="cb53-424"><a href="#cb53-424"></a></span>
-<span id="cb53-425"><a href="#cb53-425"></a></span>
-<span id="cb53-426"><a href="#cb53-426"></a>select nd.director, </span>
-<span id="cb53-427"><a href="#cb53-427"></a>count(distinct case when ng.genre = 'Comedies' then n.show_id end) as no_of_comedy,</span>
-<span id="cb53-428"><a href="#cb53-428"></a>count(distinct case when ng.genre = 'Horror Movies' then n.show_id end) as no_of_horror</span>
-<span id="cb53-429"><a href="#cb53-429"></a>from netflix_cleaned n</span>
-<span id="cb53-430"><a href="#cb53-430"></a>inner join netflix_genre ng on n.show_id = ng.show_id</span>
-<span id="cb53-431"><a href="#cb53-431"></a>inner join netflix_directors nd on n.show_id = nd.show_id</span>
-<span id="cb53-432"><a href="#cb53-432"></a>where n.type = 'Movie' and ng.genre in ('Comedies', 'Horror Movies')</span>
-<span id="cb53-433"><a href="#cb53-433"></a>group by nd.director</span>
-<span id="cb53-434"><a href="#cb53-434"></a>having count(distinct ng.genre) = 2; -- done </span>
-<span id="cb53-435"><a href="#cb53-435"></a></span>
-<span id="cb53-436"><a href="#cb53-436"></a></span>
-<span id="cb53-437"><a href="#cb53-437"></a></span>
-<span id="cb53-438"><a href="#cb53-438"></a></span>
-<span id="cb53-439"><a href="#cb53-439"></a></span>
+<span id="cb53-374"><a href="#cb53-374"></a>----------------------------DATA Analysis ----------------------------------------------------------</span>
+<span id="cb53-375"><a href="#cb53-375"></a></span>
+<span id="cb53-376"><a href="#cb53-376"></a>-- Answeing important analysis question and solving it with SQL query :</span>
+<span id="cb53-377"><a href="#cb53-377"></a>-- For each directors how many movies and shows they created in seperate columns </span>
+<span id="cb53-378"><a href="#cb53-378"></a></span>
+<span id="cb53-379"><a href="#cb53-379"></a>select nd.director,</span>
+<span id="cb53-380"><a href="#cb53-380"></a>count (distinct case when n.type = 'Movie' then n.show_id end) as no_of_movies,</span>
+<span id="cb53-381"><a href="#cb53-381"></a>count (distinct case when n.type = 'TV Show' then n.show_id end) as no_of_tvshow</span>
+<span id="cb53-382"><a href="#cb53-382"></a>from Netflix_cleaned n</span>
+<span id="cb53-383"><a href="#cb53-383"></a>inner join netflix_directors nd on n.show_id = nd.show_id</span>
+<span id="cb53-384"><a href="#cb53-384"></a>group by nd.director</span>
+<span id="cb53-385"><a href="#cb53-385"></a>having count ( distinct n.type)&gt;1 </span>
+<span id="cb53-386"><a href="#cb53-386"></a></span>
+<span id="cb53-387"><a href="#cb53-387"></a><span class="ss">- </span>done got a table with director names and no.of movies and tv shows they have directed seperately</span>
+<span id="cb53-388"><a href="#cb53-388"></a></span>
+<span id="cb53-389"><a href="#cb53-389"></a>-- Which country has produced highest number of comedy movies ?</span>
+<span id="cb53-390"><a href="#cb53-390"></a></span>
+<span id="cb53-391"><a href="#cb53-391"></a>select nc.single_country, count(distinct ng.show_id) as no_of_movies</span>
+<span id="cb53-392"><a href="#cb53-392"></a>from netflix_genre ng </span>
+<span id="cb53-393"><a href="#cb53-393"></a>inner join netflix_country nc on ng.show_id = nc.show_id </span>
+<span id="cb53-394"><a href="#cb53-394"></a>inner join netflix_cleaned n on ng.show_id = n.show_id</span>
+<span id="cb53-395"><a href="#cb53-395"></a>where ng.genre = 'Comedies' and n.type = 'Movie'</span>
+<span id="cb53-396"><a href="#cb53-396"></a>group by nc.single_country</span>
+<span id="cb53-397"><a href="#cb53-397"></a>order by no_of_movies desc-- Got US as having the highest no.of comedy movies on top of the table</span>
+<span id="cb53-398"><a href="#cb53-398"></a>limit 1 -- postgre_sql syntax for getting the top 1</span>
+<span id="cb53-399"><a href="#cb53-399"></a></span>
+<span id="cb53-400"><a href="#cb53-400"></a></span>
+<span id="cb53-401"><a href="#cb53-401"></a>-- For each year, which director has maximum number of movies released </span>
+<span id="cb53-402"><a href="#cb53-402"></a></span>
+<span id="cb53-403"><a href="#cb53-403"></a></span>
+<span id="cb53-404"><a href="#cb53-404"></a>with cte as (</span>
+<span id="cb53-405"><a href="#cb53-405"></a>select nd.director, extract(year from n.date_added) as date_year, count( n.show_id) as no_of_movies -- postgre sql syntax extract</span>
+<span id="cb53-406"><a href="#cb53-406"></a>from Netflix_Cleaned n </span>
+<span id="cb53-407"><a href="#cb53-407"></a>inner join netflix_directors nd on n.show_id = nd.show_id</span>
+<span id="cb53-408"><a href="#cb53-408"></a>where type = 'Movie'</span>
+<span id="cb53-409"><a href="#cb53-409"></a>group by nd.director, extract(year from n.date_added) </span>
+<span id="cb53-410"><a href="#cb53-410"></a>), </span>
+<span id="cb53-411"><a href="#cb53-411"></a>cte2 as (</span>
+<span id="cb53-412"><a href="#cb53-412"></a>select *, </span>
+<span id="cb53-413"><a href="#cb53-413"></a>row_number () over (partition by date_year order by no_of_movies desc, director ) as rn </span>
+<span id="cb53-414"><a href="#cb53-414"></a>from cte </span>
+<span id="cb53-415"><a href="#cb53-415"></a>)</span>
+<span id="cb53-416"><a href="#cb53-416"></a></span>
+<span id="cb53-417"><a href="#cb53-417"></a>select * from cte2 where rn=1 -- we got it from 2008 to 2021 </span>
+<span id="cb53-418"><a href="#cb53-418"></a></span>
+<span id="cb53-419"><a href="#cb53-419"></a>-- What's the avg duration of movies for each genre </span>
+<span id="cb53-420"><a href="#cb53-420"></a></span>
+<span id="cb53-421"><a href="#cb53-421"></a>select ng.genre, floor(avg(cast(replace(n.duration, ' min', '') as int))) as avg_duration</span>
+<span id="cb53-422"><a href="#cb53-422"></a>from netflix_cleaned n</span>
+<span id="cb53-423"><a href="#cb53-423"></a>inner join netflix_genre ng on n.show_id = ng.show_id</span>
+<span id="cb53-424"><a href="#cb53-424"></a>where n.type = 'Movie' </span>
+<span id="cb53-425"><a href="#cb53-425"></a>and n.duration ~ '^<span class="co">[</span><span class="ot">0-9</span><span class="co">]</span>+ min$'</span>
+<span id="cb53-426"><a href="#cb53-426"></a>group by ng.genre; -- yes we got it </span>
+<span id="cb53-427"><a href="#cb53-427"></a></span>
+<span id="cb53-428"><a href="#cb53-428"></a>-- Find the list of directors who have created horror and comedy movies both and display director names along with no. of horror and comedy movies </span>
+<span id="cb53-429"><a href="#cb53-429"></a></span>
+<span id="cb53-430"><a href="#cb53-430"></a></span>
+<span id="cb53-431"><a href="#cb53-431"></a>select nd.director, </span>
+<span id="cb53-432"><a href="#cb53-432"></a>count(distinct case when ng.genre = 'Comedies' then n.show_id end) as no_of_comedy,</span>
+<span id="cb53-433"><a href="#cb53-433"></a>count(distinct case when ng.genre = 'Horror Movies' then n.show_id end) as no_of_horror</span>
+<span id="cb53-434"><a href="#cb53-434"></a>from netflix_cleaned n</span>
+<span id="cb53-435"><a href="#cb53-435"></a>inner join netflix_genre ng on n.show_id = ng.show_id</span>
+<span id="cb53-436"><a href="#cb53-436"></a>inner join netflix_directors nd on n.show_id = nd.show_id</span>
+<span id="cb53-437"><a href="#cb53-437"></a>where n.type = 'Movie' and ng.genre in ('Comedies', 'Horror Movies')</span>
+<span id="cb53-438"><a href="#cb53-438"></a>group by nd.director</span>
+<span id="cb53-439"><a href="#cb53-439"></a>having count(distinct ng.genre) = 2; -- done </span>
 <span id="cb53-440"><a href="#cb53-440"></a></span>
 <span id="cb53-441"><a href="#cb53-441"></a></span>
 <span id="cb53-442"><a href="#cb53-442"></a></span>
-<span id="cb53-443"><a href="#cb53-443"></a><span class="fu">### Donwload the cleaned CSV data here </span></span>
-<span id="cb53-444"><a href="#cb53-444"></a><span class="co">[</span><span class="ot">Download Processed CSV</span><span class="co">](data/processed/cleaned_netflix.csv)</span>{.btn-download download}</span>
+<span id="cb53-443"><a href="#cb53-443"></a></span>
+<span id="cb53-444"><a href="#cb53-444"></a><span class="co">[</span><span class="ot">Download Cleaned CSV</span><span class="co">](https://github.com/Sohail-44/Netflix_ELT_E2E/blob/main/EDA_Cleaning/netflix_cleaned%20.csv)</span></span>
+<span id="cb53-445"><a href="#cb53-445"></a></span>
+<span id="cb53-446"><a href="#cb53-446"></a></span>
+<span id="cb53-447"><a href="#cb53-447"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

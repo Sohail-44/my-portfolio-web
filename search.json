@@ -69,7 +69,7 @@
     "href": "src/ica/Netflix_ELT_E2E.html",
     "title": "Netflix ELT Pipeline End to End",
     "section": "",
-    "text": "Donwload the Raw CSV data here\nDownload Raw CSV{.btn-download download}",
+    "text": "Donwload the Raw CSV data here\nDownload Raw CSV",
     "crumbs": [
       "Data Engineering Projects",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Netflix ELT Pipeline End to End</span>"
