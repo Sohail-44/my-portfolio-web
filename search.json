@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Sohail’s Portfolio",
     "section": "",
-    "text": "Welcome\nWelcome to my portfolio! I am Sohail, an aspiring Data Scientist, and I’m passionate about understanding the flow of data from the bottom up — from data generation to AI/ML. Check out my Data Science, Machine Learning, and Data Engineering Projects. I would love your feedback, let’s connect to grow together.\nPlease, use the side bar on the left for navigation.\n\nCode# echo: false\n\n# wordcloud2(data = ds, shape = \"cardioid\")\n\n\n\n\n\n\n\nLet’s Connect!\n\n\nEmail GitHub LinkedIn",
+    "text": "Welcome\nWelcome to my portfolio! I am Sohail, an aspiring Data Scientist, and I’m passionate about understanding the flow of data from the bottom up — from data generation to AI/ML. Check out my Data Science, Machine Learning, and Data Engineering Projects. I would love your feedback, let’s connect to grow together.\nPlease, use the side bar on the left for navigation.\n\nCode# &lt;div style=\"display:flex; justify-content:space-between; align-items:center;\"&gt;\n #  &lt;img src=\"assets/Collage.png\"  alt=\"Data Viz 1\" style=\"width:100%;\"&gt;\n# &lt;/div&gt;\n\n\n\n\n\nLet’s Connect!\n\n\nI’d love to connect—feel free to reach out anytime\n\n\nEmail GitHub LinkedIn",
     "crumbs": [
       "Welcome"
     ]
