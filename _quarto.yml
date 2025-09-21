@@ -10,9 +10,9 @@
 project:
   type: book
   output-dir: docs
-  # resources:  # in case something was not included in rendered site automatically
-  #   - "data/*"
-  #   - "images/*"
+  resources:  
+    - "data/raw/netflix_titles.csv"
+    - "data/processed/cleaned_netflix.csv"
 
 
 
@@ -73,6 +73,7 @@ book:
       chapters:
       - src/ica/ica-sample1.qmd
       - src/ica/ica-sample2.qmd
+      - src/ica/Netflix_ELT_E2E.qmd
 
 
   appendices:
