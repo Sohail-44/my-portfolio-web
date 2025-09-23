@@ -12,12 +12,56 @@
   {
     "objectID": "src/pv/pv-01.html",
     "href": "src/pv/pv-01.html",
-    "title": "Projects coming soon",
+    "title": "Recreated Original New York Times Graphic visualization",
     "section": "",
-    "text": "Add content here",
+    "text": "Original Graphic here",
     "crumbs": [
       "Data Science Projects",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Projects coming soon</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Recreated Original New York Times Graphic visualization</span>"
+    ]
+  },
+  {
+    "objectID": "src/pv/pv-01.html#what-the-visualization-contains",
+    "href": "src/pv/pv-01.html#what-the-visualization-contains",
+    "title": "Recreated Original New York Times Graphic visualization",
+    "section": "What the Visualization contains",
+    "text": "What the Visualization contains\n\nTemperature graph\n\nBands for the record, normal, and actual highs and lows are shown in the correct colors.\nDownward triangles point to the record high temperatures above the red band.\nText displays the record high temperatures above the triangles.\nX-axis label: 3-letter month abbreviations appear in the middle of each month.\nY-axis label: Tick marks at 0, 40, 80, and 120 only.\nVertical lines separate the months.\nTitle of “Temperature” is included.\n\n\nPrecipitation\n\nTan area and blue line reflecting the monthly cumulative precipitation is included.\nText (number) for cumulative precipitation for each month is included at the end of each month just above the blue line.\nDownward triangles point to the record precipitation days.\nVertical lines separate the months.\nTitle of “Precipitation” is included.\n\n\nOverall\n\nBoth the temperature and precipitation graphs are in one figure.\nThe temperature plot takes up more vertical space than the precipitation plot.\nThe title “SFO weather in 2011” is present.\n\n\nResource reflection\n\nAt least 1 resource is listed\nAt least 3 sentences about resources and their helpfulness in the task",
+    "crumbs": [
+      "Data Science Projects",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Recreated Original New York Times Graphic visualization</span>"
+    ]
+  },
+  {
+    "objectID": "src/pv/pv-01.html#setup",
+    "href": "src/pv/pv-01.html#setup",
+    "title": "Recreated Original New York Times Graphic visualization",
+    "section": "Setup",
+    "text": "Setup\n\nCode# Code for loading packages and reading in data\nlibrary(tidyverse)\nweather &lt;- read_csv(\"https://mac-stat.github.io/data/sfo_weather.csv\")\nhead(weather)\n\n# A tibble: 6 × 19\n  Month   Day   Low  High NormalLow NormalHigh RecordLow LowYr RecordHigh HiYear\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1     1     1    47    52        44         56        31  1965         68   1996\n2     1     2    48    51        44         56        29  1960         69   1996\n3     1     3    45    53        44         56        31  1950         69   2000\n4     1     4    39    53        44         56        29  1949         62   2006\n5     1     5    38    55        44         56        26  1949         65   1986\n6     1     6    37    52        44         56        29  1950         66   2003\n# ℹ 9 more variables: Precip &lt;dbl&gt;, RecordPrecip &lt;dbl&gt;, PrecipYr &lt;dbl&gt;,\n#   date &lt;date&gt;, dateInYear &lt;dbl&gt;, Record &lt;lgl&gt;, RecordText &lt;chr&gt;,\n#   RecordP &lt;lgl&gt;, CulmPrec &lt;dbl&gt;",
+    "crumbs": [
+      "Data Science Projects",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Recreated Original New York Times Graphic visualization</span>"
+    ]
+  },
+  {
+    "objectID": "src/pv/pv-01.html#visualization",
+    "href": "src/pv/pv-01.html#visualization",
+    "title": "Recreated Original New York Times Graphic visualization",
+    "section": "Visualization",
+    "text": "Visualization\n\nCode# Code for recreating the visualization\n# Use as many code chunks as you need to organize your work well\n\n\nCreating the basic plot\n\nCode# geom_linerange basically allows to plot range data (two values of y: low and max with 1 x value )\nbasic_plt &lt;-ggplot(weather, aes(x = dateInYear, ymin = weather$RecordLow, ymax = weather$RecordHigh)) + \n          geom_linerange(color = \"#ECEBE3\")+ scale_y_continuous(limits = c(0, 120), breaks = c(0, 40, 80, 120)) +         theme_classic() \n\nbasic_plt\n\n\n\n\n\n\n\nAdding normal and weather lows and highs\n\nCode# to add new layer representing more y values, we just use + and continue adding layers (no seperate operator in ggplot). \n# adding new layers of normal and record lows\n# just add + to add layers on saved basic plt, no need to pipe as we are just adding layers not saying \"and then\"\n\nnormal_record_plt &lt;-basic_plt +\n  geom_linerange(color =\"#C8B8BA\", aes(ymin = weather$NormalLow, ymax = weather$NormalHigh)) +\n  geom_linerange(color = \"#A90248\", alpha = 1,  aes(ymin = weather$Low, ymax = weather$High )) + \n  labs(subtitle = \"Temperature\", x = \" \", title = \"SFO Weather in 2011\" ) +  theme(plot.title =  element_text(hjust = 0.5))\n\nnormal_record_plt\n\n\n\n\n\n\n\nAdding downward facing triangles and dotted lines\n\nCodelibrary(ggrepel) # for repelling overlap in geom_text \n\n\n# filtering rows which whose record is True\nrec_filtered &lt;-weather %&gt;% \n  filter(Record == TRUE)\n\n\n# adding the months and dashed lines \n# to create the month lines, calculating the mid-points so that the month labels in x axis are in the middle\nmonth_start_dates &lt;- c(1,32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335) \nmidpoints &lt;- (month_start_dates[-length(month_start_dates)] + month_start_dates[-1]) / 2 # \nmonth_centers &lt;-c( 16.5, 46.0, 75.5, 106.0, 136.0, 167.0, 197.5, 228.5, 259.0, 289.5, 320.0, 350)\n\n \n\n# Adding black downward facing triangles and text on plot \n# Used the inherit.aes= False argument so that it geom_text does not inherit previous mappings(error resolved)\n achieved_plt&lt;- normal_record_plt + \n  geom_point(data = rec_filtered, aes(x = rec_filtered$dateInYear, y = rec_filtered$RecordHigh), shape =25,fill = \"black\", inherit.aes = FALSE) +\n   geom_text_repel(\n    data = rec_filtered,\n    aes(x = dateInYear, y = RecordHigh, label = RecordText),size = 1.5, inherit.aes = FALSE ) + \n    labs(x = \"\", y = \"\")\n \n\n \n\n # remocing the x-axis line\n  achieved_plt&lt;- achieved_plt + \n   theme(axis.line.x = element_blank())\n  \n  achieved_plt\n\n\n\n\n\n\n\nCreatting the precipitation plot\n\nCode# precipitation plot \n# triangles area, using geom_area, for blue lines using geom_line, taking only subset of weather data only takes it when record is 1 meaning it makes a record, taking a shape and, color and size\n# geom_text directly puts label on the graph -- very cool! \n\n\n# Month start dates to draw dotted lines and calculating midpoints to center Months\n  month_start_dates &lt;- c(1,32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335) \n  month_centers &lt;-c( 16.5, 46.0, 75.5, 106.0, 136.0, 167.0, 197.5, 228.5, 259.0, 289.5, 320.0, 350) \n  \n# Filtering out Cumulative precipitation for the end of month dates \n  target_dates &lt;- as.Date(c(\n  \"2011-01-31\",\"2011-02-28\",\"2011-03-31\",\"2011-04-30\",\"2011-05-31\",\n  \"2011-06-30\",\"2011-07-31\",\"2011-08-31\",\"2011-09-30\",\"2011-10-31\",\n  \"2011-11-30\",\"2011-12-31\"\n))\n\n  # Creating the column cuml_end_month \nweather &lt;- weather %&gt;%\n  mutate(cuml_end_month = ifelse(date %in% target_dates, CulmPrec, NA))\n\n\n# Creating the precipitation plot \n precip_plt &lt;- ggplot(weather, aes(x= dateInYear, y = CulmPrec)) + theme_classic() +\n  geom_area(fill = \"#ebeae2\") + \n  geom_line(color = \"#32a3d8\") + \n  geom_point(data = subset(weather, RecordP == 1),\n  shape = 25, fill = \"black\", size = 3) + scale_y_continuous(limits = c(0, 8), breaks = c(4,8)) +\n  geom_vline(xintercept =  month_start_dates, color = \"lightgray\")+\n  scale_x_continuous(labels = month.abb, breaks = month_centers, expand = c(0,0)) + labs( subtitle = \"Precipitation\", x = \" \", y = \" \") +    \n   geom_text_repel(\n    data = weather,\n    aes(x = dateInYear, y = CulmPrec,label = cuml_end_month  ), size = 2, inherit.aes = FALSE ) + \n    labs(x = \"\", y = \"\") \n \n \n # removing the x-axis line \n  precip_plt&lt;-precip_plt +\n  theme(axis.line.x = element_blank())\n  precip_plt\n\n\n\n\n\n\n\nArranging both plots together\n\nCode# Arranging both plts \nlibrary(gridExtra)\nplot1 &lt;-achieved_plt\nplot2 &lt;-precip_plt\n\ngrid.arrange(plot1, plot2, heights = c(11, 7.5))",
+    "crumbs": [
+      "Data Science Projects",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Recreated Original New York Times Graphic visualization</span>"
+    ]
+  },
+  {
+    "objectID": "src/pv/pv-01.html#learning-and-reflection",
+    "href": "src/pv/pv-01.html#learning-and-reflection",
+    "title": "Recreated Original New York Times Graphic visualization",
+    "section": "Learning and Reflection",
+    "text": "Learning and Reflection\nIn general, I never thought R has the power to create such powerful visualizations, I used think Python and Jave libraries could do it but learnt about some cool R libraries such as ggrepel and gridextra along with the usual ggplot. It was definitely big learning in terms of plotting exact downward triangles, to drawing dotted lines after, centering Months after calculating mid-points and most importatnt solving erorrs of geom_text(). So, building the plot step by step helpmed me learn algorithmic thinking.",
+    "crumbs": [
+      "Data Science Projects",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Recreated Original New York Times Graphic visualization</span>"
     ]
   },
   {
