@@ -324,12 +324,6 @@ cookieconsent.run({
 <li>The title “SFO weather in 2011” is present.</li>
 </ul>
 </li>
-<li>Resource reflection
-<ul>
-<li>At least 1 resource is listed</li>
-<li>At least 3 sentences about resources and their helpfulness in the task</li>
-</ul>
-</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Code for loading packages and reading in data</span></span>
@@ -1157,164 +1151,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-27"><a href="#cb9-27"></a><span class="ss">    - </span>Both the temperature and precipitation graphs are in one figure.</span>
 <span id="cb9-28"><a href="#cb9-28"></a><span class="ss">    - </span>The temperature plot takes up more vertical space than the precipitation plot.</span>
 <span id="cb9-29"><a href="#cb9-29"></a><span class="ss">    - </span>The title "SFO weather in 2011" is present.</span>
-<span id="cb9-30"><a href="#cb9-30"></a><span class="ss">- </span>Resource reflection</span>
-<span id="cb9-31"><a href="#cb9-31"></a><span class="ss">    - </span>At least 1 resource is listed</span>
-<span id="cb9-32"><a href="#cb9-32"></a><span class="ss">    - </span>At least 3 sentences about resources and their helpfulness in the task</span>
+<span id="cb9-30"><a href="#cb9-30"></a>    </span>
+<span id="cb9-31"><a href="#cb9-31"></a></span>
+<span id="cb9-32"><a href="#cb9-32"></a></span>
 <span id="cb9-33"><a href="#cb9-33"></a></span>
-<span id="cb9-34"><a href="#cb9-34"></a></span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="fu">## Setup</span></span>
 <span id="cb9-35"><a href="#cb9-35"></a></span>
-<span id="cb9-36"><a href="#cb9-36"></a></span>
-<span id="cb9-37"><a href="#cb9-37"></a><span class="fu">## Setup</span></span>
-<span id="cb9-38"><a href="#cb9-38"></a></span>
-<span id="cb9-41"><a href="#cb9-41"></a><span class="in">```{r}</span></span>
-<span id="cb9-42"><a href="#cb9-42"></a><span class="co"># Code for loading packages and reading in data</span></span>
-<span id="cb9-43"><a href="#cb9-43"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb9-44"><a href="#cb9-44"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://mac-stat.github.io/data/sfo_weather.csv"</span>)</span>
-<span id="cb9-45"><a href="#cb9-45"></a><span class="fu">head</span>(weather)</span>
-<span id="cb9-46"><a href="#cb9-46"></a><span class="in">```</span></span>
-<span id="cb9-47"><a href="#cb9-47"></a></span>
+<span id="cb9-38"><a href="#cb9-38"></a><span class="in">```{r}</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a><span class="co"># Code for loading packages and reading in data</span></span>
+<span id="cb9-40"><a href="#cb9-40"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-41"><a href="#cb9-41"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://mac-stat.github.io/data/sfo_weather.csv"</span>)</span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="fu">head</span>(weather)</span>
+<span id="cb9-43"><a href="#cb9-43"></a><span class="in">```</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a></span>
+<span id="cb9-45"><a href="#cb9-45"></a></span>
+<span id="cb9-46"><a href="#cb9-46"></a></span>
+<span id="cb9-47"><a href="#cb9-47"></a><span class="fu">## Visualization</span></span>
 <span id="cb9-48"><a href="#cb9-48"></a></span>
-<span id="cb9-49"><a href="#cb9-49"></a></span>
-<span id="cb9-50"><a href="#cb9-50"></a><span class="fu">## Visualization</span></span>
-<span id="cb9-51"><a href="#cb9-51"></a></span>
-<span id="cb9-54"><a href="#cb9-54"></a><span class="in">```{r}</span></span>
-<span id="cb9-55"><a href="#cb9-55"></a><span class="co"># Code for recreating the visualization</span></span>
-<span id="cb9-56"><a href="#cb9-56"></a><span class="co"># Use as many code chunks as you need to organize your work well</span></span>
-<span id="cb9-57"><a href="#cb9-57"></a><span class="in">```</span></span>
-<span id="cb9-58"><a href="#cb9-58"></a></span>
-<span id="cb9-59"><a href="#cb9-59"></a><span class="fu">### Creating the basic plot</span></span>
-<span id="cb9-62"><a href="#cb9-62"></a><span class="in">```{r}</span></span>
-<span id="cb9-63"><a href="#cb9-63"></a><span class="co"># geom_linerange basically allows to plot range data (two values of y: low and max with 1 x value )</span></span>
-<span id="cb9-64"><a href="#cb9-64"></a>basic_plt <span class="ot">&lt;-</span><span class="fu">ggplot</span>(weather, <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> weather<span class="sc">$</span>RecordLow, <span class="at">ymax =</span> weather<span class="sc">$</span>RecordHigh)) <span class="sc">+</span> </span>
-<span id="cb9-65"><a href="#cb9-65"></a>          <span class="fu">geom_linerange</span>(<span class="at">color =</span> <span class="st">"#ECEBE3"</span>)<span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="dv">80</span>, <span class="dv">120</span>)) <span class="sc">+</span>         <span class="fu">theme_classic</span>() </span>
+<span id="cb9-51"><a href="#cb9-51"></a><span class="in">```{r}</span></span>
+<span id="cb9-52"><a href="#cb9-52"></a><span class="co"># Code for recreating the visualization</span></span>
+<span id="cb9-53"><a href="#cb9-53"></a><span class="co"># Use as many code chunks as you need to organize your work well</span></span>
+<span id="cb9-54"><a href="#cb9-54"></a><span class="in">```</span></span>
+<span id="cb9-55"><a href="#cb9-55"></a></span>
+<span id="cb9-56"><a href="#cb9-56"></a><span class="fu">### Creating the basic plot</span></span>
+<span id="cb9-59"><a href="#cb9-59"></a><span class="in">```{r}</span></span>
+<span id="cb9-60"><a href="#cb9-60"></a><span class="co"># geom_linerange basically allows to plot range data (two values of y: low and max with 1 x value )</span></span>
+<span id="cb9-61"><a href="#cb9-61"></a>basic_plt <span class="ot">&lt;-</span><span class="fu">ggplot</span>(weather, <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> weather<span class="sc">$</span>RecordLow, <span class="at">ymax =</span> weather<span class="sc">$</span>RecordHigh)) <span class="sc">+</span> </span>
+<span id="cb9-62"><a href="#cb9-62"></a>          <span class="fu">geom_linerange</span>(<span class="at">color =</span> <span class="st">"#ECEBE3"</span>)<span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="dv">80</span>, <span class="dv">120</span>)) <span class="sc">+</span>         <span class="fu">theme_classic</span>() </span>
+<span id="cb9-63"><a href="#cb9-63"></a></span>
+<span id="cb9-64"><a href="#cb9-64"></a>basic_plt</span>
+<span id="cb9-65"><a href="#cb9-65"></a></span>
 <span id="cb9-66"><a href="#cb9-66"></a></span>
-<span id="cb9-67"><a href="#cb9-67"></a>basic_plt</span>
+<span id="cb9-67"><a href="#cb9-67"></a><span class="in">```</span></span>
 <span id="cb9-68"><a href="#cb9-68"></a></span>
-<span id="cb9-69"><a href="#cb9-69"></a></span>
-<span id="cb9-70"><a href="#cb9-70"></a><span class="in">```</span></span>
-<span id="cb9-71"><a href="#cb9-71"></a></span>
-<span id="cb9-72"><a href="#cb9-72"></a><span class="fu">### Adding normal and weather lows and highs</span></span>
-<span id="cb9-75"><a href="#cb9-75"></a><span class="in">```{r}</span></span>
-<span id="cb9-76"><a href="#cb9-76"></a><span class="co"># to add new layer representing more y values, we just use + and continue adding layers (no seperate operator in ggplot). </span></span>
-<span id="cb9-77"><a href="#cb9-77"></a><span class="co"># adding new layers of normal and record lows</span></span>
-<span id="cb9-78"><a href="#cb9-78"></a><span class="co"># just add + to add layers on saved basic plt, no need to pipe as we are just adding layers not saying "and then"</span></span>
-<span id="cb9-79"><a href="#cb9-79"></a></span>
-<span id="cb9-80"><a href="#cb9-80"></a>normal_record_plt <span class="ot">&lt;-</span>basic_plt <span class="sc">+</span></span>
-<span id="cb9-81"><a href="#cb9-81"></a>  <span class="fu">geom_linerange</span>(<span class="at">color =</span><span class="st">"#C8B8BA"</span>, <span class="fu">aes</span>(<span class="at">ymin =</span> weather<span class="sc">$</span>NormalLow, <span class="at">ymax =</span> weather<span class="sc">$</span>NormalHigh)) <span class="sc">+</span></span>
-<span id="cb9-82"><a href="#cb9-82"></a>  <span class="fu">geom_linerange</span>(<span class="at">color =</span> <span class="st">"#A90248"</span>, <span class="at">alpha =</span> <span class="dv">1</span>,  <span class="fu">aes</span>(<span class="at">ymin =</span> weather<span class="sc">$</span>Low, <span class="at">ymax =</span> weather<span class="sc">$</span>High )) <span class="sc">+</span> </span>
-<span id="cb9-83"><a href="#cb9-83"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Temperature"</span>, <span class="at">x =</span> <span class="st">" "</span>, <span class="at">title =</span> <span class="st">"SFO Weather in 2011"</span> ) <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">plot.title =</span>  <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb9-69"><a href="#cb9-69"></a><span class="fu">### Adding normal and weather lows and highs</span></span>
+<span id="cb9-72"><a href="#cb9-72"></a><span class="in">```{r}</span></span>
+<span id="cb9-73"><a href="#cb9-73"></a><span class="co"># to add new layer representing more y values, we just use + and continue adding layers (no seperate operator in ggplot). </span></span>
+<span id="cb9-74"><a href="#cb9-74"></a><span class="co"># adding new layers of normal and record lows</span></span>
+<span id="cb9-75"><a href="#cb9-75"></a><span class="co"># just add + to add layers on saved basic plt, no need to pipe as we are just adding layers not saying "and then"</span></span>
+<span id="cb9-76"><a href="#cb9-76"></a></span>
+<span id="cb9-77"><a href="#cb9-77"></a>normal_record_plt <span class="ot">&lt;-</span>basic_plt <span class="sc">+</span></span>
+<span id="cb9-78"><a href="#cb9-78"></a>  <span class="fu">geom_linerange</span>(<span class="at">color =</span><span class="st">"#C8B8BA"</span>, <span class="fu">aes</span>(<span class="at">ymin =</span> weather<span class="sc">$</span>NormalLow, <span class="at">ymax =</span> weather<span class="sc">$</span>NormalHigh)) <span class="sc">+</span></span>
+<span id="cb9-79"><a href="#cb9-79"></a>  <span class="fu">geom_linerange</span>(<span class="at">color =</span> <span class="st">"#A90248"</span>, <span class="at">alpha =</span> <span class="dv">1</span>,  <span class="fu">aes</span>(<span class="at">ymin =</span> weather<span class="sc">$</span>Low, <span class="at">ymax =</span> weather<span class="sc">$</span>High )) <span class="sc">+</span> </span>
+<span id="cb9-80"><a href="#cb9-80"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Temperature"</span>, <span class="at">x =</span> <span class="st">" "</span>, <span class="at">title =</span> <span class="st">"SFO Weather in 2011"</span> ) <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">plot.title =</span>  <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb9-81"><a href="#cb9-81"></a></span>
+<span id="cb9-82"><a href="#cb9-82"></a>normal_record_plt</span>
+<span id="cb9-83"><a href="#cb9-83"></a>  </span>
 <span id="cb9-84"><a href="#cb9-84"></a></span>
-<span id="cb9-85"><a href="#cb9-85"></a>normal_record_plt</span>
-<span id="cb9-86"><a href="#cb9-86"></a>  </span>
-<span id="cb9-87"><a href="#cb9-87"></a></span>
+<span id="cb9-85"><a href="#cb9-85"></a></span>
+<span id="cb9-86"><a href="#cb9-86"></a></span>
+<span id="cb9-87"><a href="#cb9-87"></a><span class="in">```</span></span>
 <span id="cb9-88"><a href="#cb9-88"></a></span>
-<span id="cb9-89"><a href="#cb9-89"></a></span>
-<span id="cb9-90"><a href="#cb9-90"></a><span class="in">```</span></span>
-<span id="cb9-91"><a href="#cb9-91"></a></span>
-<span id="cb9-92"><a href="#cb9-92"></a><span class="fu">### Adding downward facing triangles and dotted lines </span></span>
-<span id="cb9-95"><a href="#cb9-95"></a><span class="in">```{r}</span></span>
-<span id="cb9-96"><a href="#cb9-96"></a><span class="fu">library</span>(ggrepel) <span class="co"># for repelling overlap in geom_text </span></span>
-<span id="cb9-97"><a href="#cb9-97"></a></span>
-<span id="cb9-98"><a href="#cb9-98"></a></span>
-<span id="cb9-99"><a href="#cb9-99"></a><span class="co"># filtering rows which whose record is True</span></span>
-<span id="cb9-100"><a href="#cb9-100"></a>rec_filtered <span class="ot">&lt;-</span>weather <span class="sc">%&gt;%</span> </span>
-<span id="cb9-101"><a href="#cb9-101"></a>  <span class="fu">filter</span>(Record <span class="sc">==</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-102"><a href="#cb9-102"></a></span>
-<span id="cb9-103"><a href="#cb9-103"></a></span>
-<span id="cb9-104"><a href="#cb9-104"></a><span class="co"># adding the months and dashed lines </span></span>
-<span id="cb9-105"><a href="#cb9-105"></a><span class="co"># to create the month lines, calculating the mid-points so that the month labels in x axis are in the middle</span></span>
-<span id="cb9-106"><a href="#cb9-106"></a>month_start_dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">32</span>, <span class="dv">60</span>, <span class="dv">91</span>, <span class="dv">121</span>, <span class="dv">152</span>, <span class="dv">182</span>, <span class="dv">213</span>, <span class="dv">244</span>, <span class="dv">274</span>, <span class="dv">305</span>, <span class="dv">335</span>) </span>
-<span id="cb9-107"><a href="#cb9-107"></a>midpoints <span class="ot">&lt;-</span> (month_start_dates[<span class="sc">-</span><span class="fu">length</span>(month_start_dates)] <span class="sc">+</span> month_start_dates[<span class="sc">-</span><span class="dv">1</span>]) <span class="sc">/</span> <span class="dv">2</span> <span class="co"># </span></span>
-<span id="cb9-108"><a href="#cb9-108"></a>month_centers <span class="ot">&lt;-</span><span class="fu">c</span>( <span class="fl">16.5</span>, <span class="fl">46.0</span>, <span class="fl">75.5</span>, <span class="fl">106.0</span>, <span class="fl">136.0</span>, <span class="fl">167.0</span>, <span class="fl">197.5</span>, <span class="fl">228.5</span>, <span class="fl">259.0</span>, <span class="fl">289.5</span>, <span class="fl">320.0</span>, <span class="dv">350</span>)</span>
-<span id="cb9-109"><a href="#cb9-109"></a></span>
-<span id="cb9-110"><a href="#cb9-110"></a> </span>
-<span id="cb9-111"><a href="#cb9-111"></a></span>
-<span id="cb9-112"><a href="#cb9-112"></a><span class="co"># Adding black downward facing triangles and text on plot </span></span>
-<span id="cb9-113"><a href="#cb9-113"></a><span class="co"># Used the inherit.aes= False argument so that it geom_text does not inherit previous mappings(error resolved)</span></span>
-<span id="cb9-114"><a href="#cb9-114"></a> achieved_plt<span class="ot">&lt;-</span> normal_record_plt <span class="sc">+</span> </span>
-<span id="cb9-115"><a href="#cb9-115"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> rec_filtered, <span class="fu">aes</span>(<span class="at">x =</span> rec_filtered<span class="sc">$</span>dateInYear, <span class="at">y =</span> rec_filtered<span class="sc">$</span>RecordHigh), <span class="at">shape =</span><span class="dv">25</span>,<span class="at">fill =</span> <span class="st">"black"</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb9-116"><a href="#cb9-116"></a>   <span class="fu">geom_text_repel</span>(</span>
-<span id="cb9-117"><a href="#cb9-117"></a>    <span class="at">data =</span> rec_filtered,</span>
-<span id="cb9-118"><a href="#cb9-118"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> RecordHigh, <span class="at">label =</span> RecordText),<span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span> </span>
-<span id="cb9-119"><a href="#cb9-119"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
-<span id="cb9-120"><a href="#cb9-120"></a> </span>
-<span id="cb9-121"><a href="#cb9-121"></a></span>
-<span id="cb9-122"><a href="#cb9-122"></a> </span>
-<span id="cb9-123"><a href="#cb9-123"></a></span>
-<span id="cb9-124"><a href="#cb9-124"></a> <span class="co"># remocing the x-axis line</span></span>
-<span id="cb9-125"><a href="#cb9-125"></a>  achieved_plt<span class="ot">&lt;-</span> achieved_plt <span class="sc">+</span> </span>
-<span id="cb9-126"><a href="#cb9-126"></a>   <span class="fu">theme</span>(<span class="at">axis.line.x =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb9-127"><a href="#cb9-127"></a>  </span>
-<span id="cb9-128"><a href="#cb9-128"></a>  achieved_plt</span>
-<span id="cb9-129"><a href="#cb9-129"></a> </span>
-<span id="cb9-130"><a href="#cb9-130"></a> </span>
+<span id="cb9-89"><a href="#cb9-89"></a><span class="fu">### Adding downward facing triangles and dotted lines </span></span>
+<span id="cb9-92"><a href="#cb9-92"></a><span class="in">```{r}</span></span>
+<span id="cb9-93"><a href="#cb9-93"></a><span class="fu">library</span>(ggrepel) <span class="co"># for repelling overlap in geom_text </span></span>
+<span id="cb9-94"><a href="#cb9-94"></a></span>
+<span id="cb9-95"><a href="#cb9-95"></a></span>
+<span id="cb9-96"><a href="#cb9-96"></a><span class="co"># filtering rows which whose record is True</span></span>
+<span id="cb9-97"><a href="#cb9-97"></a>rec_filtered <span class="ot">&lt;-</span>weather <span class="sc">%&gt;%</span> </span>
+<span id="cb9-98"><a href="#cb9-98"></a>  <span class="fu">filter</span>(Record <span class="sc">==</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-99"><a href="#cb9-99"></a></span>
+<span id="cb9-100"><a href="#cb9-100"></a></span>
+<span id="cb9-101"><a href="#cb9-101"></a><span class="co"># adding the months and dashed lines </span></span>
+<span id="cb9-102"><a href="#cb9-102"></a><span class="co"># to create the month lines, calculating the mid-points so that the month labels in x axis are in the middle</span></span>
+<span id="cb9-103"><a href="#cb9-103"></a>month_start_dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">32</span>, <span class="dv">60</span>, <span class="dv">91</span>, <span class="dv">121</span>, <span class="dv">152</span>, <span class="dv">182</span>, <span class="dv">213</span>, <span class="dv">244</span>, <span class="dv">274</span>, <span class="dv">305</span>, <span class="dv">335</span>) </span>
+<span id="cb9-104"><a href="#cb9-104"></a>midpoints <span class="ot">&lt;-</span> (month_start_dates[<span class="sc">-</span><span class="fu">length</span>(month_start_dates)] <span class="sc">+</span> month_start_dates[<span class="sc">-</span><span class="dv">1</span>]) <span class="sc">/</span> <span class="dv">2</span> <span class="co"># </span></span>
+<span id="cb9-105"><a href="#cb9-105"></a>month_centers <span class="ot">&lt;-</span><span class="fu">c</span>( <span class="fl">16.5</span>, <span class="fl">46.0</span>, <span class="fl">75.5</span>, <span class="fl">106.0</span>, <span class="fl">136.0</span>, <span class="fl">167.0</span>, <span class="fl">197.5</span>, <span class="fl">228.5</span>, <span class="fl">259.0</span>, <span class="fl">289.5</span>, <span class="fl">320.0</span>, <span class="dv">350</span>)</span>
+<span id="cb9-106"><a href="#cb9-106"></a></span>
+<span id="cb9-107"><a href="#cb9-107"></a> </span>
+<span id="cb9-108"><a href="#cb9-108"></a></span>
+<span id="cb9-109"><a href="#cb9-109"></a><span class="co"># Adding black downward facing triangles and text on plot </span></span>
+<span id="cb9-110"><a href="#cb9-110"></a><span class="co"># Used the inherit.aes= False argument so that it geom_text does not inherit previous mappings(error resolved)</span></span>
+<span id="cb9-111"><a href="#cb9-111"></a> achieved_plt<span class="ot">&lt;-</span> normal_record_plt <span class="sc">+</span> </span>
+<span id="cb9-112"><a href="#cb9-112"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> rec_filtered, <span class="fu">aes</span>(<span class="at">x =</span> rec_filtered<span class="sc">$</span>dateInYear, <span class="at">y =</span> rec_filtered<span class="sc">$</span>RecordHigh), <span class="at">shape =</span><span class="dv">25</span>,<span class="at">fill =</span> <span class="st">"black"</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-113"><a href="#cb9-113"></a>   <span class="fu">geom_text_repel</span>(</span>
+<span id="cb9-114"><a href="#cb9-114"></a>    <span class="at">data =</span> rec_filtered,</span>
+<span id="cb9-115"><a href="#cb9-115"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> RecordHigh, <span class="at">label =</span> RecordText),<span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span> </span>
+<span id="cb9-116"><a href="#cb9-116"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
+<span id="cb9-117"><a href="#cb9-117"></a> </span>
+<span id="cb9-118"><a href="#cb9-118"></a></span>
+<span id="cb9-119"><a href="#cb9-119"></a> </span>
+<span id="cb9-120"><a href="#cb9-120"></a></span>
+<span id="cb9-121"><a href="#cb9-121"></a> <span class="co"># remocing the x-axis line</span></span>
+<span id="cb9-122"><a href="#cb9-122"></a>  achieved_plt<span class="ot">&lt;-</span> achieved_plt <span class="sc">+</span> </span>
+<span id="cb9-123"><a href="#cb9-123"></a>   <span class="fu">theme</span>(<span class="at">axis.line.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb9-124"><a href="#cb9-124"></a>  </span>
+<span id="cb9-125"><a href="#cb9-125"></a>  achieved_plt</span>
+<span id="cb9-126"><a href="#cb9-126"></a> </span>
+<span id="cb9-127"><a href="#cb9-127"></a> </span>
+<span id="cb9-128"><a href="#cb9-128"></a></span>
+<span id="cb9-129"><a href="#cb9-129"></a><span class="in">```</span></span>
+<span id="cb9-130"><a href="#cb9-130"></a></span>
 <span id="cb9-131"><a href="#cb9-131"></a></span>
-<span id="cb9-132"><a href="#cb9-132"></a><span class="in">```</span></span>
-<span id="cb9-133"><a href="#cb9-133"></a></span>
-<span id="cb9-134"><a href="#cb9-134"></a></span>
-<span id="cb9-135"><a href="#cb9-135"></a><span class="fu">### Creatting the precipitation plot </span></span>
-<span id="cb9-138"><a href="#cb9-138"></a><span class="in">```{r}</span></span>
-<span id="cb9-139"><a href="#cb9-139"></a><span class="co"># precipitation plot </span></span>
-<span id="cb9-140"><a href="#cb9-140"></a><span class="co"># triangles area, using geom_area, for blue lines using geom_line, taking only subset of weather data only takes it when record is 1 meaning it makes a record, taking a shape and, color and size</span></span>
-<span id="cb9-141"><a href="#cb9-141"></a><span class="co"># geom_text directly puts label on the graph -- very cool! </span></span>
-<span id="cb9-142"><a href="#cb9-142"></a></span>
-<span id="cb9-143"><a href="#cb9-143"></a></span>
-<span id="cb9-144"><a href="#cb9-144"></a><span class="co"># Month start dates to draw dotted lines and calculating midpoints to center Months</span></span>
-<span id="cb9-145"><a href="#cb9-145"></a>  month_start_dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">32</span>, <span class="dv">60</span>, <span class="dv">91</span>, <span class="dv">121</span>, <span class="dv">152</span>, <span class="dv">182</span>, <span class="dv">213</span>, <span class="dv">244</span>, <span class="dv">274</span>, <span class="dv">305</span>, <span class="dv">335</span>) </span>
-<span id="cb9-146"><a href="#cb9-146"></a>  month_centers <span class="ot">&lt;-</span><span class="fu">c</span>( <span class="fl">16.5</span>, <span class="fl">46.0</span>, <span class="fl">75.5</span>, <span class="fl">106.0</span>, <span class="fl">136.0</span>, <span class="fl">167.0</span>, <span class="fl">197.5</span>, <span class="fl">228.5</span>, <span class="fl">259.0</span>, <span class="fl">289.5</span>, <span class="fl">320.0</span>, <span class="dv">350</span>) </span>
-<span id="cb9-147"><a href="#cb9-147"></a>  </span>
-<span id="cb9-148"><a href="#cb9-148"></a><span class="co"># Filtering out Cumulative precipitation for the end of month dates </span></span>
-<span id="cb9-149"><a href="#cb9-149"></a>  target_dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(</span>
-<span id="cb9-150"><a href="#cb9-150"></a>  <span class="st">"2011-01-31"</span>,<span class="st">"2011-02-28"</span>,<span class="st">"2011-03-31"</span>,<span class="st">"2011-04-30"</span>,<span class="st">"2011-05-31"</span>,</span>
-<span id="cb9-151"><a href="#cb9-151"></a>  <span class="st">"2011-06-30"</span>,<span class="st">"2011-07-31"</span>,<span class="st">"2011-08-31"</span>,<span class="st">"2011-09-30"</span>,<span class="st">"2011-10-31"</span>,</span>
-<span id="cb9-152"><a href="#cb9-152"></a>  <span class="st">"2011-11-30"</span>,<span class="st">"2011-12-31"</span></span>
-<span id="cb9-153"><a href="#cb9-153"></a>))</span>
-<span id="cb9-154"><a href="#cb9-154"></a></span>
-<span id="cb9-155"><a href="#cb9-155"></a>  <span class="co"># Creating the column cuml_end_month </span></span>
-<span id="cb9-156"><a href="#cb9-156"></a>weather <span class="ot">&lt;-</span> weather <span class="sc">%&gt;%</span></span>
-<span id="cb9-157"><a href="#cb9-157"></a>  <span class="fu">mutate</span>(<span class="at">cuml_end_month =</span> <span class="fu">ifelse</span>(date <span class="sc">%in%</span> target_dates, CulmPrec, <span class="cn">NA</span>))</span>
-<span id="cb9-158"><a href="#cb9-158"></a></span>
-<span id="cb9-159"><a href="#cb9-159"></a></span>
-<span id="cb9-160"><a href="#cb9-160"></a><span class="co"># Creating the precipitation plot </span></span>
-<span id="cb9-161"><a href="#cb9-161"></a> precip_plt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(weather, <span class="fu">aes</span>(<span class="at">x=</span> dateInYear, <span class="at">y =</span> CulmPrec)) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb9-162"><a href="#cb9-162"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">"#ebeae2"</span>) <span class="sc">+</span> </span>
-<span id="cb9-163"><a href="#cb9-163"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#32a3d8"</span>) <span class="sc">+</span> </span>
-<span id="cb9-164"><a href="#cb9-164"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">subset</span>(weather, RecordP <span class="sc">==</span> <span class="dv">1</span>),</span>
-<span id="cb9-165"><a href="#cb9-165"></a>  <span class="at">shape =</span> <span class="dv">25</span>, <span class="at">fill =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
-<span id="cb9-166"><a href="#cb9-166"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span>  month_start_dates, <span class="at">color =</span> <span class="st">"lightgray"</span>)<span class="sc">+</span></span>
-<span id="cb9-167"><a href="#cb9-167"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> month.abb, <span class="at">breaks =</span> month_centers, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">labs</span>( <span class="at">subtitle =</span> <span class="st">"Precipitation"</span>, <span class="at">x =</span> <span class="st">" "</span>, <span class="at">y =</span> <span class="st">" "</span>) <span class="sc">+</span>    </span>
-<span id="cb9-168"><a href="#cb9-168"></a>   <span class="fu">geom_text_repel</span>(</span>
-<span id="cb9-169"><a href="#cb9-169"></a>    <span class="at">data =</span> weather,</span>
-<span id="cb9-170"><a href="#cb9-170"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> CulmPrec,<span class="at">label =</span> cuml_end_month  ), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span> </span>
-<span id="cb9-171"><a href="#cb9-171"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) </span>
-<span id="cb9-172"><a href="#cb9-172"></a> </span>
-<span id="cb9-173"><a href="#cb9-173"></a> </span>
-<span id="cb9-174"><a href="#cb9-174"></a> <span class="co"># removing the x-axis line </span></span>
-<span id="cb9-175"><a href="#cb9-175"></a>  precip_plt<span class="ot">&lt;-</span>precip_plt <span class="sc">+</span></span>
-<span id="cb9-176"><a href="#cb9-176"></a>  <span class="fu">theme</span>(<span class="at">axis.line.x =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb9-177"><a href="#cb9-177"></a>  precip_plt</span>
-<span id="cb9-178"><a href="#cb9-178"></a> </span>
-<span id="cb9-179"><a href="#cb9-179"></a><span class="in">```</span></span>
-<span id="cb9-180"><a href="#cb9-180"></a></span>
-<span id="cb9-181"><a href="#cb9-181"></a></span>
-<span id="cb9-182"><a href="#cb9-182"></a><span class="fu">### Arranging both plots together</span></span>
-<span id="cb9-185"><a href="#cb9-185"></a><span class="in">```{r}</span></span>
-<span id="cb9-186"><a href="#cb9-186"></a><span class="co"># Arranging both plts </span></span>
-<span id="cb9-187"><a href="#cb9-187"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb9-188"><a href="#cb9-188"></a>plot1 <span class="ot">&lt;-</span>achieved_plt</span>
-<span id="cb9-189"><a href="#cb9-189"></a>plot2 <span class="ot">&lt;-</span>precip_plt</span>
-<span id="cb9-190"><a href="#cb9-190"></a></span>
-<span id="cb9-191"><a href="#cb9-191"></a><span class="fu">grid.arrange</span>(plot1, plot2, <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="fl">7.5</span>)) </span>
+<span id="cb9-132"><a href="#cb9-132"></a><span class="fu">### Creatting the precipitation plot </span></span>
+<span id="cb9-135"><a href="#cb9-135"></a><span class="in">```{r}</span></span>
+<span id="cb9-136"><a href="#cb9-136"></a><span class="co"># precipitation plot </span></span>
+<span id="cb9-137"><a href="#cb9-137"></a><span class="co"># triangles area, using geom_area, for blue lines using geom_line, taking only subset of weather data only takes it when record is 1 meaning it makes a record, taking a shape and, color and size</span></span>
+<span id="cb9-138"><a href="#cb9-138"></a><span class="co"># geom_text directly puts label on the graph -- very cool! </span></span>
+<span id="cb9-139"><a href="#cb9-139"></a></span>
+<span id="cb9-140"><a href="#cb9-140"></a></span>
+<span id="cb9-141"><a href="#cb9-141"></a><span class="co"># Month start dates to draw dotted lines and calculating midpoints to center Months</span></span>
+<span id="cb9-142"><a href="#cb9-142"></a>  month_start_dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">32</span>, <span class="dv">60</span>, <span class="dv">91</span>, <span class="dv">121</span>, <span class="dv">152</span>, <span class="dv">182</span>, <span class="dv">213</span>, <span class="dv">244</span>, <span class="dv">274</span>, <span class="dv">305</span>, <span class="dv">335</span>) </span>
+<span id="cb9-143"><a href="#cb9-143"></a>  month_centers <span class="ot">&lt;-</span><span class="fu">c</span>( <span class="fl">16.5</span>, <span class="fl">46.0</span>, <span class="fl">75.5</span>, <span class="fl">106.0</span>, <span class="fl">136.0</span>, <span class="fl">167.0</span>, <span class="fl">197.5</span>, <span class="fl">228.5</span>, <span class="fl">259.0</span>, <span class="fl">289.5</span>, <span class="fl">320.0</span>, <span class="dv">350</span>) </span>
+<span id="cb9-144"><a href="#cb9-144"></a>  </span>
+<span id="cb9-145"><a href="#cb9-145"></a><span class="co"># Filtering out Cumulative precipitation for the end of month dates </span></span>
+<span id="cb9-146"><a href="#cb9-146"></a>  target_dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(</span>
+<span id="cb9-147"><a href="#cb9-147"></a>  <span class="st">"2011-01-31"</span>,<span class="st">"2011-02-28"</span>,<span class="st">"2011-03-31"</span>,<span class="st">"2011-04-30"</span>,<span class="st">"2011-05-31"</span>,</span>
+<span id="cb9-148"><a href="#cb9-148"></a>  <span class="st">"2011-06-30"</span>,<span class="st">"2011-07-31"</span>,<span class="st">"2011-08-31"</span>,<span class="st">"2011-09-30"</span>,<span class="st">"2011-10-31"</span>,</span>
+<span id="cb9-149"><a href="#cb9-149"></a>  <span class="st">"2011-11-30"</span>,<span class="st">"2011-12-31"</span></span>
+<span id="cb9-150"><a href="#cb9-150"></a>))</span>
+<span id="cb9-151"><a href="#cb9-151"></a></span>
+<span id="cb9-152"><a href="#cb9-152"></a>  <span class="co"># Creating the column cuml_end_month </span></span>
+<span id="cb9-153"><a href="#cb9-153"></a>weather <span class="ot">&lt;-</span> weather <span class="sc">%&gt;%</span></span>
+<span id="cb9-154"><a href="#cb9-154"></a>  <span class="fu">mutate</span>(<span class="at">cuml_end_month =</span> <span class="fu">ifelse</span>(date <span class="sc">%in%</span> target_dates, CulmPrec, <span class="cn">NA</span>))</span>
+<span id="cb9-155"><a href="#cb9-155"></a></span>
+<span id="cb9-156"><a href="#cb9-156"></a></span>
+<span id="cb9-157"><a href="#cb9-157"></a><span class="co"># Creating the precipitation plot </span></span>
+<span id="cb9-158"><a href="#cb9-158"></a> precip_plt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(weather, <span class="fu">aes</span>(<span class="at">x=</span> dateInYear, <span class="at">y =</span> CulmPrec)) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb9-159"><a href="#cb9-159"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">"#ebeae2"</span>) <span class="sc">+</span> </span>
+<span id="cb9-160"><a href="#cb9-160"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#32a3d8"</span>) <span class="sc">+</span> </span>
+<span id="cb9-161"><a href="#cb9-161"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">subset</span>(weather, RecordP <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb9-162"><a href="#cb9-162"></a>  <span class="at">shape =</span> <span class="dv">25</span>, <span class="at">fill =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb9-163"><a href="#cb9-163"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span>  month_start_dates, <span class="at">color =</span> <span class="st">"lightgray"</span>)<span class="sc">+</span></span>
+<span id="cb9-164"><a href="#cb9-164"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> month.abb, <span class="at">breaks =</span> month_centers, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">labs</span>( <span class="at">subtitle =</span> <span class="st">"Precipitation"</span>, <span class="at">x =</span> <span class="st">" "</span>, <span class="at">y =</span> <span class="st">" "</span>) <span class="sc">+</span>    </span>
+<span id="cb9-165"><a href="#cb9-165"></a>   <span class="fu">geom_text_repel</span>(</span>
+<span id="cb9-166"><a href="#cb9-166"></a>    <span class="at">data =</span> weather,</span>
+<span id="cb9-167"><a href="#cb9-167"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> CulmPrec,<span class="at">label =</span> cuml_end_month  ), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span> </span>
+<span id="cb9-168"><a href="#cb9-168"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) </span>
+<span id="cb9-169"><a href="#cb9-169"></a> </span>
+<span id="cb9-170"><a href="#cb9-170"></a> </span>
+<span id="cb9-171"><a href="#cb9-171"></a> <span class="co"># removing the x-axis line </span></span>
+<span id="cb9-172"><a href="#cb9-172"></a>  precip_plt<span class="ot">&lt;-</span>precip_plt <span class="sc">+</span></span>
+<span id="cb9-173"><a href="#cb9-173"></a>  <span class="fu">theme</span>(<span class="at">axis.line.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb9-174"><a href="#cb9-174"></a>  precip_plt</span>
+<span id="cb9-175"><a href="#cb9-175"></a> </span>
+<span id="cb9-176"><a href="#cb9-176"></a><span class="in">```</span></span>
+<span id="cb9-177"><a href="#cb9-177"></a></span>
+<span id="cb9-178"><a href="#cb9-178"></a></span>
+<span id="cb9-179"><a href="#cb9-179"></a><span class="fu">### Arranging both plots together</span></span>
+<span id="cb9-182"><a href="#cb9-182"></a><span class="in">```{r}</span></span>
+<span id="cb9-183"><a href="#cb9-183"></a><span class="co"># Arranging both plts </span></span>
+<span id="cb9-184"><a href="#cb9-184"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb9-185"><a href="#cb9-185"></a>plot1 <span class="ot">&lt;-</span>achieved_plt</span>
+<span id="cb9-186"><a href="#cb9-186"></a>plot2 <span class="ot">&lt;-</span>precip_plt</span>
+<span id="cb9-187"><a href="#cb9-187"></a></span>
+<span id="cb9-188"><a href="#cb9-188"></a><span class="fu">grid.arrange</span>(plot1, plot2, <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="fl">7.5</span>)) </span>
+<span id="cb9-189"><a href="#cb9-189"></a></span>
+<span id="cb9-190"><a href="#cb9-190"></a><span class="in">```</span></span>
+<span id="cb9-191"><a href="#cb9-191"></a></span>
 <span id="cb9-192"><a href="#cb9-192"></a></span>
-<span id="cb9-193"><a href="#cb9-193"></a><span class="in">```</span></span>
+<span id="cb9-193"><a href="#cb9-193"></a></span>
 <span id="cb9-194"><a href="#cb9-194"></a></span>
-<span id="cb9-195"><a href="#cb9-195"></a></span>
-<span id="cb9-196"><a href="#cb9-196"></a></span>
+<span id="cb9-195"><a href="#cb9-195"></a><span class="fu">## Learning and Reflection</span></span>
+<span id="cb9-196"><a href="#cb9-196"></a>In general, I never thought R has the power to create such powerful visualizations, I used think Python and Jave libraries could do it but learnt about some cool  R libraries such as ggrepel and gridextra along with the usual ggplot. It was definitely big learning in terms of plotting exact downward triangles, to drawing dotted lines after, centering Months after calculating mid-points and most importatnt solving erorrs of geom_text(). So, building the plot step by step helpmed me learn algorithmic thinking. </span>
 <span id="cb9-197"><a href="#cb9-197"></a></span>
-<span id="cb9-198"><a href="#cb9-198"></a><span class="fu">## Learning and Reflection</span></span>
-<span id="cb9-199"><a href="#cb9-199"></a>In general, I never thought R has the power to create such powerful visualizations, I used think Python and Jave libraries could do it but learnt about some cool  R libraries such as ggrepel and gridextra along with the usual ggplot. It was definitely big learning in terms of plotting exact downward triangles, to drawing dotted lines after, centering Months after calculating mid-points and most importatnt solving erorrs of geom_text(). So, building the plot step by step helpmed me learn algorithmic thinking. </span>
-<span id="cb9-200"><a href="#cb9-200"></a></span>
-<span id="cb9-201"><a href="#cb9-201"></a></span>
+<span id="cb9-198"><a href="#cb9-198"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
