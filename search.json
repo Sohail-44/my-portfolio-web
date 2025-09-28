@@ -188,12 +188,34 @@
   {
     "objectID": "src/appx/appx-sample1.html",
     "href": "src/appx/appx-sample1.html",
-    "title": "Appendix A — Coming soon",
+    "title": "Appendix A — Re-creation of Original New York Style Viz",
     "section": "",
-    "text": "Add content here",
+    "text": "The plot to be created",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Coming soon</span>"
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Re-creation of Original New York Style Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/appx-sample1.html#setup",
+    "href": "src/appx/appx-sample1.html#setup",
+    "title": "Appendix A — Re-creation of Original New York Style Viz",
+    "section": "Setup",
+    "text": "Setup\n\nCode# Code for loading packages and reading in data\nlibrary(tidyverse)\nweather &lt;- read_csv(\"https://mac-stat.github.io/data/sfo_weather.csv\")\nhead(weather)\n\n# A tibble: 6 × 19\n  Month   Day   Low  High NormalLow NormalHigh RecordLow LowYr RecordHigh HiYear\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1     1     1    47    52        44         56        31  1965         68   1996\n2     1     2    48    51        44         56        29  1960         69   1996\n3     1     3    45    53        44         56        31  1950         69   2000\n4     1     4    39    53        44         56        29  1949         62   2006\n5     1     5    38    55        44         56        26  1949         65   1986\n6     1     6    37    52        44         56        29  1950         66   2003\n# ℹ 9 more variables: Precip &lt;dbl&gt;, RecordPrecip &lt;dbl&gt;, PrecipYr &lt;dbl&gt;,\n#   date &lt;date&gt;, dateInYear &lt;dbl&gt;, Record &lt;lgl&gt;, RecordText &lt;chr&gt;,\n#   RecordP &lt;lgl&gt;, CulmPrec &lt;dbl&gt;",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Re-creation of Original New York Style Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/appx-sample1.html#visualization",
+    "href": "src/appx/appx-sample1.html#visualization",
+    "title": "Appendix A — Re-creation of Original New York Style Viz",
+    "section": "Visualization",
+    "text": "Visualization\n\nCode# creating a basic plot\n# geom_linerange basically allows to plot range data (two values of y: low and max with 1 x value )\nbasic_plt &lt;-ggplot(weather, aes(x = dateInYear, ymin = weather$RecordLow, ymax = weather$RecordHigh)) + \n          geom_linerange(color = \"#ECEBE3\")+ scale_y_continuous(limits = c(0, 120), breaks = c(0, 40, 80, 120)) +         theme_classic() \n\nbasic_plt\n\n\n\n\n\n\n\n\nCode# Adding normal and weather lows and highs\n# to add new layer representing more y values, we just use + and continue adding layers (no seperate operator in ggplot). \n# adding new layers of normal and record lows\n# just add + to add layers on saved basic plt, no need to pipe as we are just adding layers not saying \"and then\"\n\nnormal_record_plt &lt;-basic_plt +\n  geom_linerange(color =\"#C8B8BA\", aes(ymin = weather$NormalLow, ymax = weather$NormalHigh)) +\n  geom_linerange(color = \"#A90248\", alpha = 1,  aes(ymin = weather$Low, ymax = weather$High )) + \n  labs(subtitle = \"Temperature\", x = \" \", title = \"SFO Weather in 2011\" ) +  theme(plot.title =  element_text(hjust = 0.5))\n\nnormal_record_plt\n\n\n\n\n\n\n\n\nCodelibrary(ggrepel) # for repelling overlap in geom_text \n\n\n# filtering rows which whose record is True\nrec_filtered &lt;-weather %&gt;% \n  filter(Record == TRUE)\n\n\n# adding the months and dashed lines \n# to create the month lines, calculating the mid-points so that the month labels in x axis are in the middle\nmonth_start_dates &lt;- c(1,32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335) \nmidpoints &lt;- (month_start_dates[-length(month_start_dates)] + month_start_dates[-1]) / 2 # \nmonth_centers &lt;-c( 16.5, 46.0, 75.5, 106.0, 136.0, 167.0, 197.5, 228.5, 259.0, 289.5, 320.0, 350)\n\n \n\n# Adding black downward facing triangles and text on plot \n# Used the inherit.aes= False argument so that it geom_text does not inherit previous mappings(error resolved)\n achieved_plt&lt;- normal_record_plt + \n  geom_point(data = rec_filtered, aes(x = rec_filtered$dateInYear, y = rec_filtered$RecordHigh), shape =25,fill = \"black\",size = 0.5, inherit.aes = FALSE) +\n   geom_text_repel(\n    data = rec_filtered,\n    aes(x = dateInYear, y = RecordHigh, label = RecordText),size = 1.5, inherit.aes = FALSE ) + \n    geom_vline(xintercept = month_start_dates, color = \"lightgrey\", linetype = \"dotted\", size = 0.3)+\n    scale_x_continuous(labels = month.abb, breaks = month_centers, expand = c(0,0)) + labs( subtitle =              \"Precipitation\", x = \" \", y = \" \")\n \n\n # remocing the x-axis line\n  achieved_plt&lt;- achieved_plt + \n   theme(axis.line.x = element_blank())\n  \n  achieved_plt\n\n\n\n\n\n\n\n\nCode# precipitation plot \n# triangles area, using geom_area, for blue lines using geom_line, taking only subset of weather data only takes it when record is 1 meaning it makes a record, taking a shape and, color and size\n# geom_text directly puts label on the graph -- very cool! \n\n\n# Month start dates to draw dotted lines and calculating midpoints to center Months\n  month_start_dates &lt;- c(1,32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335) \n  month_centers &lt;-c( 16.5, 46.0, 75.5, 106.0, 136.0, 167.0, 197.5, 228.5, 259.0, 289.5, 320.0, 350) \n  \n# Filtering out Cumulative precipitation for the end of month dates \n  target_dates &lt;- as.Date(c(\n  \"2011-01-31\",\"2011-02-28\",\"2011-03-31\",\"2011-04-30\",\"2011-05-31\",\n  \"2011-06-30\",\"2011-07-31\",\"2011-08-31\",\"2011-09-30\",\"2011-10-31\",\n  \"2011-11-30\",\"2011-12-31\"\n))\n\n  # Creating the column cuml_end_month \nweather &lt;- weather %&gt;%\n  mutate(cuml_end_month = ifelse(date %in% target_dates, CulmPrec, NA))\n\n\n# Creating the precipitation plot \n precip_plt &lt;- ggplot(weather, aes(x= dateInYear, y = CulmPrec)) + theme_classic() +\n  geom_area(fill = \"#ebeae2\") + \n  geom_line(color = \"#32a3d8\") + \n  geom_point(data = subset(weather, RecordP == 1),\n  shape = 25, fill = \"black\", size = 0.6) + scale_y_continuous(limits = c(0, 8), breaks = c(4,8)) +\n  geom_vline(xintercept =  month_start_dates, color = \"lightgray\")+\n  scale_x_continuous(labels = month.abb, breaks = month_centers, expand = c(0,0)) + labs( subtitle = \"Precipitation\", x = \" \", y = \" \") +    \n   geom_text_repel(\n    data = weather,\n    aes(x = dateInYear, y = CulmPrec,label = cuml_end_month  ), size = 1.5, inherit.aes = FALSE ) + \n    labs(x = \"\", y = \"\") \n \n \n # removing the x-axis line \n  precip_plt&lt;-precip_plt +\n  theme(axis.line.x = element_blank())\n  precip_plt\n\n\n\n\n\n\n\n\nCode# final plot\n# Arranging both plts \nlibrary(gridExtra)\nplot1 &lt;-achieved_plt\nplot2 &lt;-precip_plt\n\ngrid.arrange(plot1, plot2, heights = c(11, 8))",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Re-creation of Original New York Style Viz</span>"
     ]
   },
   {
